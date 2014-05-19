@@ -1,0 +1,93 @@
+0.4.5
+- Bug fixes and improvements in Time Based Exec. It now supports exfiltration and could be stopped remotely.
+- Less lines of code for HTTP Backdoor and Download Execute PS.
+- HTTP Backdoor, Download Execute PS, Hashdump and Exfiltrate and Dump LSA Secrets now execute the downloaded script in memory.
+- Shortened parameters passed to powershell.exe when the scripts are called. Thus, saving the time in "typing" by HID.
+- Added two new exfiltration options, POST requests and DNS TXT records.
+- Username and password for exfiltration would be asked only if you select gmail or pastebin.
+- Tinypaste as an option for exfiltration has been removed.
+- Payloads have been made more modular which results in smaller size.
+- Reboot Persistence has been added to HTTP Backdoor and DNS TXT Backdoor.
+- Menu redesign.
+- Bug fix in Dump LSA Secrets payload.
+- Added ./extras/Decode.ps1. Use this to decode data exfiltrated by HTTP Backdoor and DNS TXT Backdoor.
+- Added ./extras/Remove-Persistence.ps1. Use this to remove persistence by Keylogger, HTTP Backdoor and DNS TXT Backdoor.
+- Kautilya could be run on Windows if win32console gem is installed.
+
+0.4.4
+- Added "Download and Execute Powershell Script" windows payload.
+- Added "Remove Update" windows payload.
+- Added "LSA Secrets" windows payload.
+- Updated "DNS TXT Backdoor". It is much more easy to use now.
+- Renamed Wait for Command to HTTP Backdoor
+- HTTP Backdoor now keeps running till the stopstring is matched.
+- An option has been added for no exfiltration of data. Choose 0 when Kautilya asks for exfil option.
+0.4.3
+- Names of various payloads have been changed, mostly to remove pastebin from the name.
+- Shortened variables names and powershell cmdlets names in many payloads. Payloads are "typed" much faster by HID now.
+- Fixed a bug on Get Target Credentials payload.
+- Fixed a bug in DNS TXT Backdoor.
+- Hashdump payload now uses TokenDuplication and does not schedules a task on the target, this means the payload is faster now.
+- New communication options added to various payloads which exports data to pastebin/gmail/tinypaste.
+- Posts to pastebin now use HTTPS.
+0.4.2
+- Added bit of code which adjusts the payloads for Teensy++ 2.0 and Teensy 3.0
+0.4.1
+- Added Base64toString and StringtoBase64 scripts in the extras directory to be used with DNS TXT Backdoor and other payloads.
+- PowerShell scripts in extras directory are now Get-Help compatible.
+0.4.0
+- Added Peensy functionality which means reliable execution of payloads and measured delays when the device is connected.
+- Added "DNS TXT Backdoor" payload for Windows.
+- Fixed a small bug in Rogue AP payload. The SSID key was not masked previously.
+- Credentials payload now validates both local and AD crdentials. If creds entered could not be validated locally or at AD, credential prompt is shown again.
+- Fixed a major bug in Time Based Execution payload. Embarrassingly, "echo" was missing from various lines of the payload,  making it ineffective.
+- Added osx_payloadgen.txt to the extras directory. It was somehow missed in 0.3.0
+- Fixed a small bug in Information Gather payload.
+- Added sniffer.ps1 to the extras directory.
+- Minor changes in Tracking Target Connectivity payload.
+- Removed Chrome RDP Payload. Was not really useful.
+- Removed Uninstall payload till next release.
+0.3.0
+- Fixed a minor bug in "code execution using powershell" payload.
+- An exception is added to Windows firewall for bind shell in "Rogue AP" payload
+- Fixed a major bug in "Connect to Hotspot and Execute code". The SSID key was being stored in encrypted format which doesn't work (Windows seem to encrypt WLAN keys using some machine specific key). Now the key is stored in plain and WLAN profile import works on other systems too.
+- Fixed a bug in "Hashdump and upload to pastebin" payload. The powershell command was being called from the dumpaste.vbs script without bypassing executionpolicy. This means password hashes were being dumped but not pasted to pastebin..
+- Removed TYPESPEED from every payload which was being used as good luck mark and was borrowed from SET :)
+- Implemented Left + Enter as a method to say yes to UAC prompt, previously it was Alt + Y. Thanks to Paul who commented this on my blog.
+- Increased the delay at the beginning to 25 seconds.
+- Replaced the older "linux_codeexec.ino" (which had hardcoded shellcode) with proper file.
+- Minor improvements in some lonux payload. Files written to disk are now written in /tmp.
+- Added "Get Target Credentials" payload for Windows.
+- Added "DNS TXT Code Execution" payload for Windows.
+- Added "Tracking Target Connectivity" payload for Windows.
+- Added "Speak" payload for Windows.
+- Added "Wait for Command" payload for Windows.
+- Added "DNS TXT Code Execution" for Linux.
+- Added "Perl Reverse Shell (MSF)" for Linux.
+- Added payloads for Mac OS X, tested on OS X Lion runnning on a VMWare.
+- Added "Download and Execute" for  OS X.
+- Added "DNS TXT Code Execution" for  OS X.
+- Added "Perl Reverse Shell (MSF)" from OS X
+- Added "Ruby Reverse Shell (MSF)" for OS X
+0.2.2
+- Keylogger for Windows is somewhat improved now, the keylogging starts after the keypaste code now thus showing less garbage after parsing.
+- Keylog script now logs a key every 40 millisecond in place of 10 milliseconds. Seems more sane.
+- Passwords are now masked.
+- Silly but serious bug: Data pasted to pastebin was not private but unlisted (api_private_paste=1), changed it to 2 (private paste).
+
+0.2.1
+- Smaller command window and blue font on black background while "typing" for more stealth
+- Some bug fixes in enable rdp, linux download exec and some other payloads
+
+0.2.0
+- Added "Download and Execute" payload for Linux
+- Added "Reverse Shells using built in tools" payload for Linux
+- Added "Code Execution" payload for Linux
+- Added "Connect to Hotspot and Execute code" payload for Windows
+- Added "Code Execution using Powershell" payload for Windows
+- Added "Time based paylaod execution" payload for Windows
+- Added "WLAN keys dump" payload for Windows
+- Rogue AP payload now opens up a meterpreter bind on the victim machine
+- Minor changes to Main Menu
+
+0.1.0 Initial Release

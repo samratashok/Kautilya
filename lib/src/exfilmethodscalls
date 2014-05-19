@@ -1,0 +1,16 @@
+ if ("INPUT0" == "pastebin")
+  {
+    pastebin(fn);
+  }
+  else if ("INPUT0" == "gmail")
+  {
+    gmail(fn,"no");
+  }
+  else if ("INPUT0" == "post")
+  {
+    hpost(fn);
+  }
+  else if ("INPUT0" == "dns")
+  {
+    dns(fn);
+  }

