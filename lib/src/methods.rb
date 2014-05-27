@@ -229,8 +229,10 @@ end
 def rogue_ap()
   puts"\nThis payload creates a wireless hosted network on Windows 7 and executes a meterpreter bind using powershell.".bold
   puts"\nThis payload executes shellcode using powerhsell and is based upon Matt's post on exploit-monday blog.".bold
-  puts"Currently, to use this payload you need to copy payload to rogue_ap.txt in src directory."
-  puts"The payload needs to be generated using the command in payloadgen.txt in extras directory."
+  puts"Currently, to use this you need to copy msf shellcode to rogue_ap.txt in src directory."
+  puts"The shellcode needs to be generated using the command in payloadgen.txt in extras directory."
+  puts"To connect to the bind shell. Set LPORT as what you specify here."
+  puts"RHOST must should be set to the IP of Default Gateway, AFTER connecting to the SSID."
   file = File.read("./lib/src/rogue_ap.pde")
   file_p = File.read("./lib/src/rogue_ap.txt")
 

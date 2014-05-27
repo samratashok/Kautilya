@@ -1,3 +1,6 @@
+0.4.5.1
+- Minor changes to help of Rogue AP payload.
+- Command to generate shellcode for Rogue AP added to payloadgen.txt in extras directory.
 0.4.5
 - Bug fixes and improvements in Time Based Exec. It now supports exfiltration and could be stopped remotely.
 - Less lines of code for HTTP Backdoor and Download Execute PS.
