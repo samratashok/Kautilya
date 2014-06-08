@@ -1,5 +1,5 @@
 #Script used by Nishang payload "hashdump_powershelldown". Put this script on any web server e.g. pastebin/tinypaste and use the url in Kautilya. 
-#The script duplicates token from lsass to gain SYSTEM privs. The duplicate token code is part of Nishang (http://code.google.com/p/nishang/) and is
+#The script duplicates token from lsass to gain SYSTEM privs. The duplicate token code is part of Nishang (https://github.com/samratashok/nishang) and is
 #written by Niklas Goude. The hashes are dumped using the powerdump script from MSF written by David Kennedy.
 
 function Enable-TSDuplicateToken { 

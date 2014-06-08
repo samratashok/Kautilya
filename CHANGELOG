@@ -1,3 +1,8 @@
+0.4.5.3
+- Minor changes in compress_encode method in exfilmethodsdefs.
+- Powershell scripts in extras directory should now be run with dot sourcing. See help of the scripts.
+- Minor improvements in DNS TXT Backdoor.
+- Added Invoke-Encode.ps1 to the extras directory. Use it for DNS TXT Backdoor and for other encoding needs.
 0.4.5.2
 - Bug fixes in Rogue AP, Powershell Code Exec, Download_exec and Force Connect Wifi.
 0.4.5.1
