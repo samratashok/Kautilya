@@ -24,7 +24,7 @@ puts"                                                  888          ".blue
 puts"                                             Y8b d88P          ".blue
 puts"Pwnage with Human Interface Devices           \"Y88P\"       ".blue
 
-puts"\nVersion 0.4.5"
+puts"\nVersion 0.4.6"
 print"|..| ".green
 print"Written By: ".yellow
 print"Nikhil \"SamratAshok\" Mittal            ".cyan
@@ -76,6 +76,7 @@ when "1"
   puts" 5. WLAN keys dump"
   puts" 6. Get Target Credentials"
   puts" 7. Dump LSA Secrets"
+  puts" 8. Get Screenshots"
   puts"\n 0. Go back to Main Menu"
   option = input("")
   case option
@@ -93,6 +94,8 @@ when "1"
     credentials()
   when "7"
     lsa_secrets()
+  when "8"
+    screenshot()
   when "0"
   end
 when "2"

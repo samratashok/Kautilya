@@ -1,3 +1,5 @@
+0.4.6
+- Added Get Screenshots Windows payload.
 0.4.5.3
 - Minor changes in compress_encode method in exfilmethodsdefs.
 - Powershell scripts in extras directory should now be run with dot sourcing. See help of the scripts.
