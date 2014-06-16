@@ -68,7 +68,7 @@
 Run kautilya.rb and follow the menus. Kautilya asks for your inputs for various options. The generated payload is copied to the output directory of Kautilya.
 
 #####Supported Human Interface Devices
-In principal Kautilya should work with any HID capable of acting as a keyboard. Kautilya has been tested on Teensy++2.0 and Teensy 3.0 from pjrc.com. Updates about Kautilya can be found most of the times at my blog http://labofapenetrationtester.blogspot.com/ and google group.
+In principal Kautilya should work with any HID capable of acting as a keyboard. Kautilya has been tested on Teensy++2.0 and Teensy 3.0 from pjrc.com. Updates about Kautilya can be found most of the times at my blog http://labofapenetrationtester.com/ and google group.
 
 #####User Group
 For any queries, discussions and feedback, post to official google group http://groups.google.com/group/kautilya-users or mail me at nikhil d0t uitrgpv at gmail.com 
