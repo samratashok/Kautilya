@@ -1,3 +1,13 @@
+0.5.0
+- Added Execute Shellcode for Windows (under Execution menu).
+- Added "Dump passwords in plain" for Windows (under Gather menu).
+- Added "Copy SAM (VSS)" for Windows (under Gather menu).
+- Added "Dump Process Memory" for Windows (under Gather menu).
+- Added "Dump Windows Vault Credentials" for Windows (under Gather menu).
+- Added "Add a user and Enable Powershell Remoting" for Windows (under Manage menu).
+- Added support for Gems bundler.
+- Added more banners of Kautilya.
+- Fixed a bug where Kautilya was not closing output files.
 0.4.6
 - Added Get Screenshots Windows payload.
 0.4.5.3

@@ -4,7 +4,14 @@
   }
   else if ("INPUT0" == "gmail")
   {
-    gmail(fn,"no");
+    if (fp != "")
+    {
+        gmail(fn,fp);
+    }
+    else
+    {
+        gmail(fn,"no");
+    }
   }
   else if ("INPUT0" == "post")
   {

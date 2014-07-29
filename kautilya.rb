@@ -1,30 +1,24 @@
 #!/usr/bin/ruby
+require "rubygems"
+require 'bundler/setup'
 if ((/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM) != nil)
   require 'Win32/Console/ANSI'
 end
-require "rubygems"
 require "colored"
 require "./lib/src/methods"
-
+require "artii"
 #Config Variables. Separate class or file would be used if more are required.
 $output_path = File.expand_path(File.dirname(__FILE__))
 
 system("clear")
 puts"\n\n\n\n"
 
-puts"888    d8P                    888    d8b 888                   ".blue
-puts"888   d8P                     888    Y8P 888                   ".blue
-puts"888  d8P                      888        888                   ".blue
-puts"888d88K      8888b.  888  888 888888 888 888 888  888  8888b.  ".blue
-puts"8888888b        \"88b 888  888 888    888 888 888  888     \"88b ".blue
-puts"888  Y88b   .d888888 888  888 888    888 888 888  888 .d888888 ".blue
-puts"888   Y88b  888  888 Y88b 888 Y88b.  888 888 Y88b 888 888  888 ".blue
-puts"888    Y88b \"Y888888  \"Y88888  \"Y888 888 888  \"Y88888 \"Y888888 ".blue
-puts"                                                  888          ".blue
-puts"                                             Y8b d88P          ".blue
-puts"Pwnage with Human Interface Devices           \"Y88P\"       ".blue
+#Load banner
+fonts = ['3-d', 'banner3', 'colossal', 'epic', 'isometric1', 'isometric2', 'isometric3', 'isometric4', 'univers', 'starwars', 'calgphy2' ]
+a = Artii::Base.new :font => fonts.sample
+puts"#{a.asciify('Kautilya')}".blue
 
-puts"\nVersion 0.4.6"
+puts"\nVersion 0.5.0"
 print"|..| ".green
 print"Written By: ".yellow
 print"Nikhil \"SamratAshok\" Mittal            ".cyan
@@ -77,6 +71,10 @@ when "1"
   puts" 6. Get Target Credentials"
   puts" 7. Dump LSA Secrets"
   puts" 8. Get Screenshots"
+  puts" 9. Dump passwords in plain"
+  puts "10. Copy SAM"
+  puts "11. Dump Process Memory"
+  puts "12. Dump Windows Vault Credentials"
   puts"\n 0. Go back to Main Menu"
   option = input("")
   case option
@@ -96,6 +94,14 @@ when "1"
     lsa_secrets()
   when "8"
     screenshot()
+  when "9"
+    dump_passwords()
+  when "10"
+    vss()
+  when "11"
+    memdump()
+  when "12"
+    getvault()
   when "0"
   end
 when "2"
@@ -104,6 +110,7 @@ when "2"
   puts" 3. Code Execution using Powershell"
   puts" 4. Code Execution using DNS TXT queries"
   puts" 5. Download and Execute PowerShell Script"
+  puts" 6. Execute ShellCode"
   puts"\n 0. Go back to Main Menu"
   option = input("")
   case option
@@ -117,6 +124,8 @@ when "2"
     dns_code_exec()
   when "5"
     download_execute_ps()
+  when "6"
+    invoke_shellcode()
   when "0"
   end
 when "3"
@@ -161,6 +170,7 @@ when "5"
   puts" 3. Edit the hosts file"
   puts" 4. Add a user and Enable RDP"
   puts" 5. Add a user and Enable Telnet"
+  puts" 6. Add a user and Enable Powershell Remoting"
   puts"\n 0. Go back to Main Menu"
   option = input("")
   case option
@@ -174,6 +184,8 @@ when "5"
     enable_rdp()
   when "5"
     enable_telnet()
+  when "6"
+    enable_psremoting()
   when "0"
   end
 when "6"

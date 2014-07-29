@@ -37,6 +37,7 @@ void setup(){
 
 
   String fn = "cr";
+  String fp;
   EXFILCALLS
 
 

