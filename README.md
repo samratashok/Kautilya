@@ -16,6 +16,7 @@
 - Copy SAM
 - Dump Process Memory
 - Dump Windows Vault Credentials
+
 ######Execute
 - Download and Execute
 - Connect to Hotspot and Execute code
