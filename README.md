@@ -13,7 +13,7 @@
 - Get Target Credentials
 - Dump LSA Secrets
 - Dump passwords in plain
-- Copy SAM (VSS)
+- Copy SAM
 - Dump Process Memory
 - Dump Windows Vault Credentials
 -
