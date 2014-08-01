@@ -73,6 +73,8 @@
 #####Usage
 Run kautilya.rb and follow the menus. Kautilya asks for your inputs for various options. The generated payload is copied to the output directory of Kautilya.
 
+The generated payload is an arduino sketch, ready to be used with Arduino IDE. Burn it to Human Interface Device of your choice and have fun!
+
 #####Supported Human Interface Devices
 In principal Kautilya should work with any HID capable of acting as a keyboard. Kautilya has been tested on Teensy++2.0 and Teensy 3.0 from pjrc.com. Updates about Kautilya can be found most of the times at my blog http://labofapenetrationtester.com/ and google group.
 
