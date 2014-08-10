@@ -91,6 +91,9 @@ bundle install
 
 to install all the required gems.
 #####Contributing
+If you code in Ruby, you can contribute by helping in rebuilding UI of Kautilya. 
+I am trying to make it an interactive shell based tool unlike the current menus based UI.
+
 I am always looking for contributors to Kautilya. Please submit requests or drop me email.
 
 #####Blog Posts
