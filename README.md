@@ -1,6 +1,7 @@
 ##Kautilya
 
 ###Kautilya is a toolkit which provides various payloads for a Human Interface Device which may help in breaking in a computer during penetration tests. 
+By [nikhil_mitt](https://twitter.com/nikhil_mitt)
 
 #####List of Payloads
 #####Windows
