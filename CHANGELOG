@@ -1,3 +1,6 @@
+0.5.1
+- Bug fix in the Windows/Misc/Speak payload.
+- Bug fix in Windows/Manage/"Add an Admin user" payload.
 0.5.0
 - Added Execute Shellcode for Windows (under Execution menu).
 - Added "Dump passwords in plain" for Windows (under Gather menu).

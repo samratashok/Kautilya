@@ -14,7 +14,7 @@ void setup(){
   reset_windows_desktop(2000);
   }
 
-  Keyboard.println("echo (new-object -com SAPI.SpVoice).speak(\"Sentence\") > %temp%\\sp.ps1");
+  Keyboard.println("echo (new-object -com SAPI.SpVoice).speak(\"INPUT0\") > %temp%\\sp.ps1");
   Keyboard.println("echo Set oShell = CreateObject(\"WScript.Shell\") > %temp%\\sp.vbs");
   Keyboard.println("echo oShell.Run(\"powershell.exe -ep bypass -nologo -c %temp%\\sp.ps1\"),0,true >> %temp%\\sp.vbs");
   delay(1000);

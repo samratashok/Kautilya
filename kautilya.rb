@@ -175,7 +175,7 @@ when "5"
   option = input("")
   case option
   when "1"
-    user_add()
+    windows_add_user()
   when "2"
     default_dns()
   when "3"
