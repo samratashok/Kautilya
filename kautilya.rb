@@ -135,6 +135,7 @@ when "3"
   puts" 4. DNS TXT Backdoor"
   puts" 5. Wireless Rogue AP"
   puts" 6. Tracking Target Connectivity"
+  puts" 7. Gupt Backdoor"
   puts"\n 0. Go back to Main Menu"
   option = input("")
   case option
@@ -150,6 +151,8 @@ when "3"
     rogue_ap()
   when "6"
     ncsi()
+  when "7"
+    gupt()
   when "0"
   end
 when"4"

@@ -1,3 +1,8 @@
+0.5.3
+- Addee Gupt Backdoor for Windows under Backdoor menu.
+0.5.2
+- Bug fix in wlan_key.ino
+- Changes in compress_encode method in exfilmethodsdefs.
 0.5.1
 - Bug fix in the Windows/Misc/Speak payload.
 - Bug fix in Windows/Manage/"Add an Admin user" payload.

