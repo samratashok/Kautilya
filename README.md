@@ -33,6 +33,7 @@ By [nikhil_mitt](https://twitter.com/nikhil_mitt)
 - DNS TXT Backdoor
 - Wireless Rogue AP
 - Tracking Target Connectivity
+- Gupt Backdoor
 
 ######Escalate
 - Remove Update
