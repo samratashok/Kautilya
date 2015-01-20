@@ -18,7 +18,7 @@ fonts = ['3-d', 'banner3', 'colossal', 'epic', 'isometric1', 'isometric2', 'isom
 a = Artii::Base.new :font => fonts.sample
 puts"#{a.asciify('Kautilya')}".blue
 
-puts"\nVersion 0.5.0"
+puts"\nVersion 0.5.4"
 print"|..| ".green
 print"Written By: ".yellow
 print"Nikhil \"SamratAshok\" Mittal            ".cyan
