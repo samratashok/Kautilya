@@ -1,5 +1,9 @@
+0.5.4
+- Fixed hash corruption bug in "Hashdump and Exfiltrate" payload.
+- Changes to Compression and Encoding for some payloads.
+- Fixed a bug in lsa_secrets script in extras directory.
 0.5.3
-- Addee Gupt Backdoor for Windows under Backdoor menu.
+- Added Gupt Backdoor for Windows under Backdoor menu.
 0.5.2
 - Bug fix in wlan_key.ino
 - Changes in compress_encode method in exfilmethodsdefs.

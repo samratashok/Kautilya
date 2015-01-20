@@ -1,6 +1,9 @@
-﻿<#
+﻿
+function Invoke-Decode
+{
+<#
 .SYNOPSIS
-Script for Kautilya to decode the data encoded by Invoke-Encode, DNS TXT and POST exfiltration methods.
+Script for Nishang to decode the data encoded by Invoke-Encode, DNS TXT and POST exfiltration methods.
 
 .DESCRIPTION
 The script asks for an encoded string as an option, decodes it and writes to a file "decoded.txt" in the current working directory.
@@ -22,20 +25,15 @@ PS > Invoke-Decode -EncodedData C:\files\encoded.txt
 
 .EXAMPLE
 
-PS > Invoke-Decode K07MLUosSSzOyM+OycvMzsjM4eUCAA== -IsString
+PS > Invoke-Decode c08t0Q0oyk9OLS7m5QIA -IsString
 
 Use above to decode a string.
 
 .LINK
-http://blog.karstein-consulting.com/2010/10/19/how-to-embedd-compressed-scripts-in-other-powershell-scripts/
-https://github.com/samratashok/Kautilya
+http://www.darkoperator.com/blog/2013/3/21/powershell-basics-execution-policy-and-code-signing-part-2.html
+https://github.com/samratashok/nishang
 
 #>
-
-
-
-function Invoke-Decode
-{
     [CmdletBinding()] Param(
         [Parameter(Position = 0, Mandatory = $True)]
         [String]
@@ -59,14 +57,13 @@ function Invoke-Decode
     {
         $data = Get-Content $EncodedData -Encoding UTF8 
     }
-    $dec = [System.Convert]::FromBase64String("$data")
+    $dec = [System.Convert]::FromBase64String($data)
     $ms = New-Object System.IO.MemoryStream
     $ms.Write($dec, 0, $dec.Length)
     $ms.Seek(0,0) | Out-Null
-    $cs = New-Object System.IO.Compression.GZipStream($ms, [System.IO.Compression.CompressionMode]::Decompress)
+    $cs = New-Object System.IO.Compression.DeflateStream ($ms, [System.IO.Compression.CompressionMode]::Decompress)
     $sr = New-Object System.IO.StreamReader($cs)
     $output = $sr.readtoend()
-    $output
     Out-File -InputObject $output -FilePath $OutputFilePath
     Write-Host "Decode data written to $OutputFilePath"
 }
