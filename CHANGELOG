@@ -1,3 +1,12 @@
+0.5.5
+- Added new category of attacks "Drop Files"
+- Added "Drop a MS Word File" under Drop Files category.
+- Added "Drop a MS Excel File" under Drop Files category.
+- Added "Drop a CHM (Compiled HTML Help) file" under Drop Files category.
+- Added "Drop a Shortcut (.LNK) file" under Drop Files category.
+- Added "Drop a JAR file" under Drop Files category.
+- Fixed a bug where function call for "Code Execution using DNS TXT queries" had a typo.
+- Improvements to "Code Execution using DNS TXT queries", Rogue AP and "DNS TXT Backdoor".
 0.5.4
 - Fixed hash corruption bug in "Hashdump and Exfiltrate" payload.
 - Changes to Compression and Encoding for some payloads.

