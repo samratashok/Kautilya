@@ -47,6 +47,13 @@ By [nikhil_mitt](https://twitter.com/nikhil_mitt)
 - Add a user and Enable Telnet
 -  Add a user and Enable Powershell Remoting
 
+######Drop Files
+- Drop a MS Word File
+- Drop a MS Excel File
+- Drop a CHM (Compiled HTML Help) file
+- Drop a Shortcut (.LNK) file
+- Drop a JAR file
+
 ######Misc
 - Browse and Accept Java Signed Applet
 - Speak on Target
