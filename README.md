@@ -25,6 +25,7 @@ By [nikhil_mitt](https://twitter.com/nikhil_mitt)
 - Code Execution using DNS TXT queries
 - Download and Execute PowerShell Script
 - Execute ShellCode
+- Reverse TCP Shell
 
 ######Backdoor
 - Sethc and Utilman backdoor
