@@ -18,7 +18,7 @@ fonts = ['3-d', 'banner3', 'colossal', 'epic', 'isometric1', 'isometric2', 'isom
 a = Artii::Base.new :font => fonts.sample
 puts"#{a.asciify('Kautilya')}".blue
 
-puts"\nVersion 0.5.5"
+puts"\nVersion 0.5.6"
 print"|..| ".green
 print"Written By: ".yellow
 print"Nikhil \"SamratAshok\" Mittal            ".cyan
@@ -112,6 +112,7 @@ when "2"
   puts" 4. Code Execution using DNS TXT queries"
   puts" 5. Download and Execute PowerShell Script"
   puts" 6. Execute ShellCode"
+  puts" 7. Reverse TCP Shell"
   puts"\n 0. Go back to Main Menu"
   option = input("")
   case option
@@ -127,6 +128,8 @@ when "2"
     download_execute_ps()
   when "6"
     invoke_shellcode()
+  when "7"
+    reverse_tcp()
   when "0"
   end
 when "3"

