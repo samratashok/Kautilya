@@ -1,5 +1,11 @@
 0.5.6
 - Added "Reverse TCP Shell" under the Execute category.
+- Added "Reverse UDP Shell" under the Execute category.
+- Added "Reverse ICMP Shell" under the Execute category.
+- Added "Reverse HTTPS Shell" under the Execute category.
+- Added "Reverse HTTP Shell" under the Execute category.
+- Fixed a bug in "Dump passwords in plain".
+- Added a standard disclaimer.
 0.5.5
 - Added new category of attacks "Drop Files"
 - Added "Drop a MS Word File" under Drop Files category.
