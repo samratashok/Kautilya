@@ -110,7 +110,7 @@ def getdevkey
 end
 
 def geturl
-  url = input("Enter the url of your website which accpets HTTP POST requests and saves at least one POST parameter: ")
+  url = input("Enter the url of your website which accepts HTTP POST requests and saves at least one POST parameter: ")
   return url
 end
 
