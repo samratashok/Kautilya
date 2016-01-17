@@ -110,7 +110,7 @@ def getdevkey
 end
 
 def geturl
-  url = input("Enter the url of your website which accpets HTTP POST requests and saves at least one POST parameter: ")
+  url = input("Enter the url of your website which accepts HTTP POST requests and saves at least one POST parameter: ")
   return url
 end
 
@@ -197,7 +197,7 @@ end
 
 def hashdump_powershelldown()
   puts"\nThis payload uses powershell script to dump password hashes from the target.".bold
-  puts"You have to manually upload the scrpit to a website. The script is downloaded and executed.".bold
+  puts"You have to manually upload the script to a website. The script is downloaded and executed.".bold
   puts"After the script is executed the hashes are exfiltrated using method of choice.".bold
   puts"You can find the script at ../extras/hashdump_download.ps1 \n".bold
   url  = input("Enter the URL where you have pasted hashdump_download script (for pastebin use raw format like http://pastebin.com/raw.php?i=YeMYP68J): " )
@@ -420,7 +420,7 @@ end
 
 def lsa_secrets()
   puts"\nThis payload uses powershell script to dump lsa secrets from the target.".bold
-  puts"You have to manually upload the scrpit to a website. The script is downloaded and executed.".bold
+  puts"You have to manually upload the script to a website. The script is downloaded and executed.".bold
   puts"After the script is executed the secrets are exfiltrated using method of choice.".bold
   puts"You can find the script at ../extras/lsa_secrets.ps1 \n".bold
   url  = input("Enter the URL where you have pasted lsa_secrets script (for pastebin use raw format like http://pastebin.com/raw.php?i=ukhX7RSV): " )
