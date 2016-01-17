@@ -113,6 +113,10 @@ when "2"
   puts" 5. Download and Execute PowerShell Script"
   puts" 6. Execute ShellCode"
   puts" 7. Reverse TCP Shell"
+  puts" 8. Reverse UDP Shell"
+  puts" 9. Reverse ICMP Shell"
+  puts" 10. Reverse HTTPS Shell"
+  puts" 11. Reverse HTTP Shell"
   puts"\n 0. Go back to Main Menu"
   option = input("")
   case option
@@ -130,6 +134,14 @@ when "2"
     invoke_shellcode()
   when "7"
     reverse_tcp()
+  when "8"
+    reverse_udp()
+  when "9"
+    reverse_icmp()
+  when "10"
+    reverse_https()
+  when "11"
+    reverse_http()
   when "0"
   end
 when "3"

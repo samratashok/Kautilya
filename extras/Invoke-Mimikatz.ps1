@@ -1,6 +1,5 @@
 ﻿#This script is to be used with the Dump Passwords payload of Kautilya.
-#
-#
+
 
 function Invoke-Mimikatz
 {

