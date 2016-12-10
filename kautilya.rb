@@ -2,7 +2,7 @@
 require "rubygems"
 require 'bundler/setup'
 if ((/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM) != nil)
-  require 'Win32/Console/ANSI'
+  #require 'Win32/Console/ANSI'
 end
 require "colored"
 require "./lib/src/methods"
@@ -29,7 +29,7 @@ print"@nikhil_mitt                              ".cyan
 print"|..|\n".green
 print"|..| ".green
 print"Bugs & Feedback: ".yellow
-print"nikhil_uitrgpv@yahoo.co.in        ".cyan
+print"nikhil.uitrgpv@gmail.com        ".cyan
 print"|..|\n".green
 print"|..| ".green
 print"Code: ".yellow

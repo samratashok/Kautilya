@@ -6,4 +6,4 @@ gem 'colored'
 #For Banner
 gem 'artii'
 #For Windows systems
-gem 'win32console' if ((/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM) != nil)
+#gem 'win32console' if ((/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM) != nil)
